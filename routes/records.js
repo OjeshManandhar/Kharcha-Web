@@ -11,19 +11,19 @@ router.get('/', function (req, res) {
 });
 
 router.get('/add', (req, res) => {
-  res.send('Add Record');
+  res.sendFile(path('views', 'records', 'add.html'));
 });
 
 router.get('/list', (req, res) => {
-  res.send('List Records');
+  res.sendFile(path('views', 'records', 'list.html'));
 });
 
 router.get('/filter', (req, res) => {
-  res.send('Filter Records');
+  res.sendFile(path('views', 'records', 'filter.html'));
 });
 
 router.get('/delete', (req, res) => {
-  res.send('Delete Record');
+  res.sendFile(path('views', 'records', 'delete.html'));
 });
 
 module.exports = router;
