@@ -14,6 +14,12 @@ router.get('/add', (req, res) => {
   res.sendFile(path('views', 'records', 'add.html'));
 });
 
+router.post('/add', (req, res) => {
+  console.log('add record:', req.body);
+
+  res.redirect('/records');
+});
+
 router.get('/list', (req, res) => {
   res.sendFile(path('views', 'records', 'list.html'));
 });

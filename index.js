@@ -1,5 +1,6 @@
 // packages
 const express = require('express');
+const bodyParser = require('body-parser');
 
 // routes
 const homeRouter = require('./routes/home');
@@ -10,6 +11,9 @@ const recordsRouter = require('./routes/records');
 const path = require('./utils/path');
 
 const app = express();
+
+// request parser
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Static
 app.use(express.static(path('public')));
