@@ -7,12 +7,86 @@
     <title>Kharcha | Add Record</title>
 
     <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
   </head>
 
   <body>
     <main class="main">
       <div class="main__container">
-        <h1>Add Record</h1>
+        <form action="/records/add" class="form" method="POST">
+          <h1 class="title">Add Record</h1>
+
+          <ul class="form__list">
+            <li class="form__item">
+              <label for="id" class="form__label">
+                <span>ID</span>
+              </label>
+              <input
+                type="text"
+                class="form__input"
+                name="id"
+                value="1"
+                disabled
+              />
+            </li>
+
+            <li class="form__item">
+              <label for="date" class="form__label">
+                <span>Date <span class="form__required">*</span></span>
+              </label>
+              <input type="date" class="form__input" name="date" required />
+            </li>
+
+            <li class="form__item">
+              <label for="amount" class="form__label">
+                <span>Amount <span class="form__required">*</span></span>
+              </label>
+              Rs.
+              <input type="number" class="form__input" name="amount" required />
+            </li>
+
+            <li class="form__item">
+              <div class="form__label" style="display: inline">
+                <span>Type <span class="form__required">*</span></span>
+              </div>
+              <input
+                type="radio"
+                class="form__input"
+                name="type"
+                value="debit"
+                required
+              />
+              <label for="type">Debit</label>
+              <input
+                type="radio"
+                class="form__input"
+                name="type"
+                value="credit"
+                required
+              />
+              <label for="type">Credit</label>
+            </li>
+
+            <li class="form__item">
+              <label for="tags" class="form__label">
+                <span>Tags</span>
+              </label>
+              <input type="text" class="form__input" name="tags" />
+            </li>
+
+            <li class="form__item">
+              <label for="description" class="form__label">
+                <span>description</span>
+              </label>
+              <textarea
+                rows="3"
+                wrap="hard"
+                class="form__input form__input--description"
+                name="description"
+              ></textarea>
+            </li>
+          </ul>
+        </form>
       </div>
     </main>
   </body>
