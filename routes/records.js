@@ -7,7 +7,7 @@ const path = require('./../utils/path');
 const router = express.Router();
 
 router.get('/', function (req, res) {
-  res.sendFile(path('views', 'records.html'));
+  res.sendFile(path('views', 'records', 'index.html'));
 });
 
 router.get('/add', (req, res) => {
