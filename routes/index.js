@@ -18,4 +18,8 @@ router.get('/records', function (req, res) {
   res.sendFile(path('views', 'records.html'));
 });
 
+router.get('/tags', function (req, res) {
+  res.sendFile(path('views', 'tags.html'));
+});
+
 module.exports = router;

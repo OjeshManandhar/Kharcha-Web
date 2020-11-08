@@ -10,7 +10,7 @@ const path = require('./utils/path');
 app.use('/', indexRouter);
 
 // 404
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).sendFile(path('views', '404.html'));
 });
 
