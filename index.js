@@ -1,11 +1,15 @@
 // packages
-const app = require('express')();
+const express = require('express');
 
 // routes
 const indexRouter = require('./routes/index');
 
 // utils
 const path = require('./utils/path');
+
+const app = express();
+
+app.use(express.static(path('public')));
 
 app.use('/', indexRouter);
 
