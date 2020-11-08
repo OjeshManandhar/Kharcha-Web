@@ -2,16 +2,20 @@
 const express = require('express');
 
 // routes
-const indexRouter = require('./routes/index');
+const homeRouter = require('./routes/home');
+const recordsRouter = require('./routes/records');
 
 // utils
 const path = require('./utils/path');
 
 const app = express();
 
+// Static
 app.use(express.static(path('public')));
 
-app.use('/', indexRouter);
+// Routers
+app.use('/', homeRouter);
+app.use('/records', recordsRouter);
 
 // 404
 app.use((req, res) => {
