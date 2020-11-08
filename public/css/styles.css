@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'WorkSans';
+  src: url('/fonts/WorkSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'WorkSans';
+  src: url('/fonts/WorkSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+}
+
 html,
 body {
   width: 100%;
@@ -5,6 +21,16 @@ body {
 
   margin: 0;
   padding: 0;
+
+  box-sizing: border-box;
+}
+
+body * {
+  font-family: 'WorkSans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  box-sizing: border-box;
 }
 
 .main {
