@@ -4,11 +4,14 @@ const app = require('express')();
 // routes
 const indexRouter = require('./routes/index');
 
+// utils
+const path = require('./utils/path');
+
 app.use('/', indexRouter);
 
 // 404
 app.use((req, res, next) => {
-  res.status(404).send('<h1>Page not found</h1>');
+  res.status(404).sendFile(path('views', '404.html'));
 });
 
 app.listen(3000, () => console.log('Server started at port 3000'));
