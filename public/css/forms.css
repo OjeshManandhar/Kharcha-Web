@@ -32,7 +32,9 @@
   cursor: pointer;
 }
 
-.form__back:hover {
+.form__back:focus,
+.form__back:hover,
+.form__back:active {
   font-weight: bold;
   transition: all 0.4s ease-in-out;
 }
@@ -169,7 +171,9 @@
   cursor: pointer;
 }
 
-.form__button:hover {
+.form__button:focus,
+.form__button:hover,
+.form__button:active {
   color: #f5f5f5;
   background-color: #00695c;
   transition: all 0.4s ease-in-out;
