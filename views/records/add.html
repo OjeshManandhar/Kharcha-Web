@@ -14,7 +14,7 @@
     <main class="main">
       <div class="main__container">
         <form action="/records/add" class="form" method="POST">
-          <h1 class="title">Add Record</h1>
+          <h1 class="form__title">Add Record</h1>
 
           <ul class="form__list">
             <li class="form__item">
@@ -41,48 +41,60 @@
               <label for="amount" class="form__label">
                 <span>Amount <span class="form__required">*</span></span>
               </label>
-              Rs.
+              <span class="form__amount">Rs.</span>
               <input type="number" class="form__input" name="amount" required />
             </li>
 
             <li class="form__item">
-              <div class="form__label" style="display: inline">
+              <div class="form__label">
                 <span>Type <span class="form__required">*</span></span>
               </div>
-              <input
-                type="radio"
-                class="form__input"
-                name="type"
-                value="debit"
-                required
-              />
-              <label for="type">Debit</label>
-              <input
-                type="radio"
-                class="form__input"
-                name="type"
-                value="credit"
-                required
-              />
-              <label for="type">Credit</label>
+              <div class="form__radio-container">
+                <div class="form__radio">
+                  <input
+                    type="radio"
+                    class="form__radio-input"
+                    name="type"
+                    value="debit"
+                    required
+                  />
+                  <label for="type" class="form__radio-label">Debit</label>
+                </div>
+                <div class="form__radio">
+                  <input
+                    type="radio"
+                    class="form__radio-input"
+                    name="type"
+                    value="credit"
+                    required
+                  />
+                  <label for="type" class="form__radio-label">Credit </label>
+                </div>
+              </div>
             </li>
 
             <li class="form__item">
               <label for="tags" class="form__label">
                 <span>Tags</span>
               </label>
-              <input type="text" class="form__input" name="tags" />
+              <input
+                type="text"
+                class="form__input"
+                name="tags"
+                placeholder="Comma separated tags list"
+              />
             </li>
 
             <li class="form__item">
               <label for="description" class="form__label">
-                <span>description</span>
+                <span>Description</span>
               </label>
               <textarea
                 rows="3"
                 wrap="hard"
-                class="form__input form__input--description"
+                class="form__textarea"
                 name="description"
+                placeholder="Description"
               ></textarea>
             </li>
           </ul>
