@@ -14,8 +14,4 @@ router.get('/home', function (req, res) {
   res.sendFile(path('views', 'home.html'));
 });
 
-router.get('/tags', function (req, res) {
-  res.sendFile(path('views', 'tags.html'));
-});
-
 module.exports = router;

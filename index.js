@@ -3,6 +3,7 @@ const express = require('express');
 
 // routes
 const homeRouter = require('./routes/home');
+const tagsRouter = require('./routes/tags');
 const recordsRouter = require('./routes/records');
 
 // utils
@@ -15,6 +16,7 @@ app.use(express.static(path('public')));
 
 // Routers
 app.use('/', homeRouter);
+app.use('/tags', tagsRouter);
 app.use('/records', recordsRouter);
 
 // 404
