@@ -1,0 +1,16 @@
+{
+  "name": "kharcha-web",
+  "version": "1.0.0",
+  "description": "Simple web server for Kharcha",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web-server",
+    "express",
+    "nodejs"
+  ],
+  "author": "Ojesh Manandhar",
+  "license": "ISC"
+}
