@@ -14,12 +14,6 @@ router.get('/add', (req, res) => {
   res.sendFile(path('views', 'records', 'add.html'));
 });
 
-router.post('/add', (req, res) => {
-  console.log('add record:', req.body);
-
-  res.redirect('/records');
-});
-
 router.get('/list', (req, res) => {
   res.sendFile(path('views', 'records', 'list.html'));
 });
@@ -30,6 +24,24 @@ router.get('/filter', (req, res) => {
 
 router.get('/delete', (req, res) => {
   res.sendFile(path('views', 'records', 'delete.html'));
+});
+
+router.post('/add', (req, res) => {
+  console.log('add record:', req.body);
+
+  res.redirect('/records');
+});
+
+router.post('/filter', (req, res) => {
+  console.log('filter record:', req.body);
+
+  res.redirect('/records');
+});
+
+router.post('/delete', (req, res) => {
+  console.log('delete record:', req.body);
+
+  res.redirect('/records');
 });
 
 module.exports = router;

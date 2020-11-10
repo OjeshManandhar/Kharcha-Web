@@ -7,12 +7,117 @@
     <title>Kharcha | Filter Records</title>
 
     <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
   </head>
 
   <body>
     <main class="main">
       <div class="main__container">
-        <h1>Filter Records</h1>
+        <form action="/records/filter" class="form" method="POST">
+          <div class="form__title-container">
+            <a href="/records" class="form__back"><</a>
+
+            <h1 class="form__title">Filter Record</h1>
+          </div>
+
+          <ul class="form__list">
+            <li class="form__item">
+              <div class="form__label">
+                <span>ID</span>
+              </div>
+              <input type="number" class="form__input" name="id-start" />
+              <span class="form__multi-input-text">to</span>
+              <input type="number" class="form__input" name="id-end" />
+            </li>
+
+            <li class="form__item">
+              <div class="form__label">
+                <span>Date</span>
+              </div>
+              <input type="date" class="form__input" name="date-start" />
+              <span class="form__multi-input-text">to</span>
+              <input type="date" class="form__input" name="date-end" />
+            </li>
+
+            <li class="form__item">
+              <div class="form__label">
+                <span>Amount</span>
+              </div>
+              <span class="form__amount">Rs.</span>
+              <input type="number" class="form__input" name="amount-start" />
+              <span class="form__multi-input-text">to</span>
+              <span class="form__amount">Rs.</span>
+              <input type="number" class="form__input" name="amount-end" />
+            </li>
+
+            <li class="form__item">
+              <div class="form__label">
+                <span>Type</span>
+              </div>
+              <div class="form__radio-container">
+                <div class="form__radio">
+                  <input
+                    name="type"
+                    type="radio"
+                    class="form__radio-input"
+                    value="debit"
+                  />
+                  <label for="type" class="form__radio-label">Debit</label>
+                </div>
+                <div class="form__radio">
+                  <input
+                    name="type"
+                    type="radio"
+                    class="form__radio-input"
+                    value="credit"
+                  />
+                  <label for="type" class="form__radio-label">Credit </label>
+                </div>
+                <div class="form__radio">
+                  <input
+                    name="type"
+                    type="radio"
+                    class="form__radio-input"
+                    value="any"
+                  />
+                  <label for="type" class="form__radio-label">Any </label>
+                </div>
+              </div>
+            </li>
+
+            <li class="form__item">
+              <label for="tags" class="form__label">
+                <span>Tags</span>
+              </label>
+              <input
+                type="text"
+                name="tags"
+                class="form__input"
+                autocomplete="off"
+                placeholder="Comma separated tags list"
+              />
+            </li>
+
+            <li class="form__item">
+              <label for="description" class="form__label">
+                <span>Description</span>
+              </label>
+              <textarea
+                wrap="hard"
+                name="description"
+                class="form__textarea"
+                placeholder="Description"
+              ></textarea>
+            </li>
+          </ul>
+
+          <div class="form__button-container">
+            <button type="submit" class="form__button">Filter Record</button>
+            <a href="/records" class="form__button-link">
+              <div class="form__button">Cancel</div>
+            </a>
+          </div>
+        </form>
       </div>
     </main>
   </body>
