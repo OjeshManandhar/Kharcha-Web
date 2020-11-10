@@ -33,7 +33,7 @@ router.post('/add', (req, res) => {
 });
 
 router.post('/search', (req, res) => {
-  console.log('filter tag:', req.body);
+  console.log('search tag:', req.body);
 
   res.redirect('/tags');
 });

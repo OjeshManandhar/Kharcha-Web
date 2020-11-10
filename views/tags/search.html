@@ -7,12 +7,43 @@
     <title>Kharcha | Search Tags</title>
 
     <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
   </head>
 
   <body>
     <main class="main">
       <div class="main__container">
-        <h1>Search Tags</h1>
+        <form action="/tags/search" class="form form--small" method="POST">
+          <div class="title">
+            <a href="/tags" class="title__back"><</a>
+
+            <h1 class="title__heading">Search Tags</h1>
+          </div>
+
+          <ul class="form__list">
+            <li class="form__item">
+              <label for="tag" class="form__label">
+                <span>Tag <span class="form__required">*</span></span>
+              </label>
+              <input
+                type="text"
+                class="form__input"
+                name="tag"
+                required
+                autocomplete="off"
+              />
+            </li>
+          </ul>
+
+          <div class="form__button-container">
+            <button type="submit" class="form__button form__button--small">
+              Search Tags
+            </button>
+            <a href="/records" class="form__button-link">
+              <div class="form__button form__button--small">Cancel</div>
+            </a>
+          </div>
+        </form>
       </div>
     </main>
   </body>
