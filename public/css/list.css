@@ -1,0 +1,84 @@
+.list {
+  width: 750px;
+
+  padding: 10px 20px;
+
+  background-color: white;
+}
+
+.list--small {
+  width: 400px;
+}
+
+.list__window {
+  height: 500px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.list__window--small {
+  height: 350px;
+}
+
+/* Scrollbar */
+/* width */
+.list__window::-webkit-scrollbar {
+  width: 20px;
+
+  overflow: hidden;
+
+  background-color: transparent;
+}
+
+/* Track */
+.list__window::-webkit-scrollbar-track {
+  border-left: 10px solid white;
+
+  background-color: #f1f1f1;
+
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Handle */
+.list__window::-webkit-scrollbar-thumb {
+  border-left: 10px solid white;
+
+  background-color: #00695c;
+}
+
+/* Handle on hover */
+.list__window::-webkit-scrollbar-thumb:hover {
+  background: #004e45;
+}
+
+.list__block {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  padding: 10px 20px;
+  margin-bottom: 5px;
+
+  font-size: 20px;
+  color: #00695c;
+
+  border-radius: 5px;
+  border: 1px solid #00695c;
+}
+
+.list__block * {
+  font-size: 20px;
+  color: #00695c;
+}
+
+.list__block:last-child {
+  margin-bottom: 0px;
+}
