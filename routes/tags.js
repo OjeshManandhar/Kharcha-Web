@@ -26,4 +26,22 @@ router.get('/delete', (req, res) => {
   res.sendFile(path('views', 'tags', 'delete.html'));
 });
 
+router.post('/add', (req, res) => {
+  console.log('add tag:', req.body);
+
+  res.redirect('/tags');
+});
+
+router.post('/search', (req, res) => {
+  console.log('filter tag:', req.body);
+
+  res.redirect('/tags');
+});
+
+router.post('/delete', (req, res) => {
+  console.log('delete tag:', req.body);
+
+  res.redirect('/tags');
+});
+
 module.exports = router;
