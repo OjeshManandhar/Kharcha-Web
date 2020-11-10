@@ -7,12 +7,78 @@
     <title>Kharcha | Delete Record</title>
 
     <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <link rel="stylesheet" href="/css/list.css" />
   </head>
 
   <body>
     <main class="main">
       <div class="main__container">
-        <h1>Delete Record</h1>
+        <form action="/records/delete" class="form" method="POST">
+          <div class="title">
+            <a href="/records" class="title__back"><</a>
+
+            <h1 class="title__heading">Delete Record</h1>
+          </div>
+
+          <ul class="form__list">
+            <li class="form__item">
+              <label for="id" class="form__label">
+                <span>ID <span class="form__required">*</span></span>
+              </label>
+              <input
+                type="text"
+                class="form__input"
+                name="id"
+                value="1"
+                required
+              />
+            </li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <div class="list__block">
+            <div class="list__row">
+              <div class="list__label">Date</div>
+              <div class="list__value">2020-11-10</div>
+
+              <div class="list__label list__label--no-grow">ID</div>
+              <div class="list__value list__value--no-grow">1</div>
+            </div>
+            <div class="list__row">
+              <div class="list__label">Amount</div>
+              <div class="list__value">Rs. 100</div>
+
+              <div class="list__label list__label--no-grow">Type</div>
+              <div class="list__value list__value--no-grow">Debit</div>
+            </div>
+            <div class="list__row">
+              <div class="list__label">Tags</div>
+              <div class="list__value">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque,
+                illo?
+              </div>
+            </div>
+            <div class="list__row">
+              <div class="list__label">Description</div>
+              <div class="list__value">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum,
+                aliquid eum explicabo ut aliquam animi officiis dicta blanditiis
+                praesentium in temporibus! Quis, dolores reiciendis. Facilis.
+              </div>
+            </div>
+          </div>
+
+          <div class="button__button-container">
+            <a href="/records" class="button__button-link">
+              <div class="button__button button__button--small">Cancel</div>
+            </a>
+            <button type="submit" class="button__button button__button--small">
+              Delete Record
+            </button>
+          </div>
+        </form>
       </div>
     </main>
   </body>
