@@ -51,3 +51,45 @@ body * {
   border-radius: 15px;
   box-shadow: 5px 5px 15px rgba(186, 126, 126, 0.5);
 }
+
+.title {
+  position: relative;
+
+  color: #4e4e4e;
+
+  margin: 0 0 20px 0;
+  padding: 0 0 5px 0;
+
+  border-radius: 5px;
+  border-bottom: 1px solid black;
+}
+
+.title__back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  font-size: 30px;
+  color: #4e4e4e;
+  font-weight: normal;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.title__back:focus,
+.title__back:hover,
+.title__back:active {
+  font-weight: bold;
+  transition: all 0.4s ease-in-out;
+}
+
+.title__heading {
+  margin: 0;
+  padding: 0;
+
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
