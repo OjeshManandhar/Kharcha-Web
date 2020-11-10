@@ -61,6 +61,7 @@
                     type="radio"
                     class="form__radio-input"
                     value="debit"
+                    checked="checked"
                   />
                   <label for="type" class="form__radio-label">Debit</label>
                 </div>
@@ -85,10 +86,63 @@
               </div>
             </li>
 
+            <!-- Radio tags-type -->
+            <!-- <li class="form__item">
+              <label for="tags" class="form__label">
+                <span>Tags</span>
+              </label>
+              <div class="form__multi-row-input">
+                <div class="form__multi-row-input-container">
+                  <div class="form__radio-container">
+                    <div class="form__radio">
+                      <input
+                        type="radio"
+                        class="form__radio-input"
+                        name="tags-type"
+                        value="any"
+                        checked="checked"
+                      />
+                      <label for="tags-type" class="form__radio-label"
+                        >Any among</label
+                      >
+                    </div>
+                    <div class="form__radio">
+                      <input
+                        type="radio"
+                        class="form__radio-input"
+                        name="tags-type"
+                        value="all"
+                      />
+                      <label for="tags-type" class="form__radio-label"
+                        >All among
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form__multi-row-input-container">
+                  <input
+                    type="text"
+                    name="tags"
+                    class="form__input"
+                    autocomplete="off"
+                    placeholder="Comma separated tags list"
+                  />
+                </div>
+              </div>
+            </li> -->
+
+            <!-- Select tags-type -->
             <li class="form__item">
               <label for="tags" class="form__label">
                 <span>Tags</span>
               </label>
+              <div class="form__select-container">
+                <select name="tags-type" class="form__select">
+                  <option value="any" selected>Any among</option>
+                  <option value="all">All among</option>
+                </select>
+              </div>
               <input
                 type="text"
                 name="tags"
