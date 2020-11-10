@@ -65,7 +65,7 @@
   align-items: stretch;
 
   padding: 10px 20px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 
   font-size: 20px;
   color: #00695c;
@@ -81,4 +81,60 @@
 
 .list__block:last-child {
   margin-bottom: 0px;
+}
+
+.list__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  margin-bottom: 10px;
+}
+
+.list__row:last-child {
+  margin-bottom: 0;
+}
+
+.list__label {
+  display: inline;
+
+  align-self: center;
+
+  min-width: 125px;
+  max-width: 125px;
+
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.list__label:first-child {
+  margin-left: 0;
+}
+
+.list__label--no-grow {
+  min-width: 100px;
+  max-width: 100px;
+
+  text-align: right;
+}
+
+.list__value {
+  flex-grow: 1;
+
+  max-height: 85px;
+
+  padding: 5px 10px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  border-radius: 3px;
+  border: 1px solid rgb(118, 118, 118);
+}
+
+.list__value--no-grow {
+  flex-grow: 0;
+
+  min-width: 100px;
 }
