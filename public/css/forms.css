@@ -6,6 +6,10 @@
   background-color: white;
 }
 
+.form--small {
+  width: 500px;
+}
+
 .form__list {
   list-style: none;
 
@@ -182,6 +186,10 @@
   border: 1px solid #00695c;
 
   cursor: pointer;
+}
+
+.form__button--small {
+  width: 200px;
 }
 
 .form__button:focus,
