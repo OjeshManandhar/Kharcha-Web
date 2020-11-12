@@ -8,7 +8,7 @@ const tagsRouter = require('./routes/tags');
 const recordsRouter = require('./routes/records');
 
 // utils
-const { path, renderPath } = require('./utils/path');
+const { path } = require('./utils/path');
 
 const app = express();
 
@@ -29,7 +29,7 @@ app.use('/records', recordsRouter);
 
 // 404
 app.use((req, res) => {
-  res.status(404).render(renderPath('404'));
+  res.status(404).render(path('404'), { title: 'Page Not Found' });
 });
 
 app.listen(3000, () => console.log('Server started at port 3000'));

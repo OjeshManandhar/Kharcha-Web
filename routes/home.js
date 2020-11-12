@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/home', function (req, res) {
-  res.render(path('home'));
+  res.render(path('home'), { title: 'Home' });
 });
 
 module.exports = router;

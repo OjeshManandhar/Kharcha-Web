@@ -7,23 +7,23 @@ const { path } = require('./../utils/path');
 const router = express.Router();
 
 router.get('/', function (req, res) {
-  res.render(path('tags', 'index'));
+  res.render(path('tags', 'index'), { title: 'Tags' });
 });
 
 router.get('/add', (req, res) => {
-  res.render(path('tags', 'add'));
+  res.render(path('tags', 'add'), { title: 'Add Tag' });
 });
 
 router.get('/list', (req, res) => {
-  res.render(path('tags', 'list'));
+  res.render(path('tags', 'list'), { title: 'List Tags' });
 });
 
 router.get('/search', (req, res) => {
-  res.render(path('tags', 'search'));
+  res.render(path('tags', 'search'), { title: 'Search Tag' });
 });
 
 router.get('/delete', (req, res) => {
-  res.render(path('tags', 'delete'));
+  res.render(path('tags', 'delete'), { title: 'Delete Tag' });
 });
 
 router.post('/add', (req, res) => {
