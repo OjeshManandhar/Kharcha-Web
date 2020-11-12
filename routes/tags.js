@@ -7,23 +7,23 @@ const { path } = require('./../utils/path');
 const router = express.Router();
 
 router.get('/', function (req, res) {
-  res.sendFile(path('views', 'tags', 'index.html'));
+  res.render(path('tags', 'index'));
 });
 
 router.get('/add', (req, res) => {
-  res.sendFile(path('views', 'tags', 'add.html'));
+  res.render(path('tags', 'add'));
 });
 
 router.get('/list', (req, res) => {
-  res.sendFile(path('views', 'tags', 'list.html'));
+  res.render(path('tags', 'list'));
 });
 
 router.get('/search', (req, res) => {
-  res.sendFile(path('views', 'tags', 'search.html'));
+  res.render(path('tags', 'search'));
 });
 
 router.get('/delete', (req, res) => {
-  res.sendFile(path('views', 'tags', 'delete.html'));
+  res.render(path('tags', 'delete'));
 });
 
 router.post('/add', (req, res) => {
