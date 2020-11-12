@@ -1,5 +1,6 @@
-const path = require('path');
+const p = require('path');
 
-const root = path.dirname(process.mainModule.filename);
+const root = p.dirname(process.mainModule.filename);
 
-module.exports = (...args) => path.join(root, ...args);
+module.exports.path = (...args) => p.join(root, ...args);
+module.exports.renderPath = (...args) => p.join(...args);

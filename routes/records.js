@@ -2,7 +2,7 @@
 const express = require('express');
 
 // utils
-const path = require('./../utils/path');
+const { path } = require('./../utils/path');
 
 const router = express.Router();
 
