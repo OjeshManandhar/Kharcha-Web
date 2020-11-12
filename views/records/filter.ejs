@@ -56,10 +56,23 @@
                     name="type"
                     type="radio"
                     class="form__radio-input"
-                    value="debit"
+                    value="any"
                     checked="checked"
+                    required
                   />
-                  <label for="type" class="form__radio-label">Debit</label>
+                  <label for="type" class="form__radio-label">Any</label>
+                </div>
+                <div class="form__radio">
+                  <input
+                    name="type"
+                    type="radio"
+                    class="form__radio-input"
+                    value="debit"
+                    required
+                  />
+                  <label for="type" class="form__radio-label"
+                    >Debits only</label
+                  >
                 </div>
                 <div class="form__radio">
                   <input
@@ -67,17 +80,11 @@
                     type="radio"
                     class="form__radio-input"
                     value="credit"
+                    required
                   />
-                  <label for="type" class="form__radio-label">Credit </label>
-                </div>
-                <div class="form__radio">
-                  <input
-                    name="type"
-                    type="radio"
-                    class="form__radio-input"
-                    value="any"
-                  />
-                  <label for="type" class="form__radio-label">Any </label>
+                  <label for="type" class="form__radio-label"
+                    >Credits only</label
+                  >
                 </div>
               </div>
             </li>
@@ -158,6 +165,39 @@
                 class="form__textarea"
                 placeholder="Description"
               ></textarea>
+            </li>
+
+            <li class="form__item form__item--margin-top">
+              <div class="form__label">
+                <span>Criteria <span class="required">*</span></span>
+              </div>
+              <div class="form__radio-container">
+                <div class="form__radio">
+                  <input
+                    name="criteria"
+                    type="radio"
+                    class="form__radio-input"
+                    value="any"
+                    checked="checked"
+                    required
+                  />
+                  <label for="criteria" class="form__radio-label">
+                    Matching Any Criteria
+                  </label>
+                </div>
+                <div class="form__radio">
+                  <input
+                    name="criteria"
+                    type="radio"
+                    class="form__radio-input"
+                    value="all"
+                    required
+                  />
+                  <label for="criteria" class="form__radio-label">
+                    Matching All Criteria
+                  </label>
+                </div>
+              </div>
             </li>
           </ul>
 

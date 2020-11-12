@@ -39,6 +39,10 @@
   color: #00695c;
 }
 
+.form__item--margin-top {
+  margin-top: 10px;
+}
+
 .form__item:last-child {
   margin-bottom: 0px;
 }
