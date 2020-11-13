@@ -8,10 +8,14 @@ class Tag {
     tags.push(this);
   }
 
-  edit(name) {
+  static list() {
+    return tags;
+  }
+
+  static edit(oldTag, newTag) {
     const newTags = tags.map(tag => {
-      if (tag === this.name) {
-        return name;
+      if (tag === oldTag) {
+        return newTag;
       }
 
       return tag;
@@ -19,10 +23,6 @@ class Tag {
 
     tags.splice(0, tags.length);
     tags.push(...newTags);
-  }
-
-  static list() {
-    return tags;
   }
 
   static search(name) {

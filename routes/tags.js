@@ -18,6 +18,10 @@ router.get('/list', (req, res) => {
   res.render(path('tags', 'list'), { title: 'List Tags' });
 });
 
+router.get('/edit', (req, res) => {
+  res.render(path('tags', 'edit'), { title: 'Edit Tag' });
+});
+
 router.get('/search', (req, res) => {
   res.render(path('tags', 'search'), { title: 'Search Tag' });
 });
@@ -28,6 +32,12 @@ router.get('/delete', (req, res) => {
 
 router.post('/add', (req, res) => {
   console.log('add tag:', req.body);
+
+  res.redirect('/tags');
+});
+
+router.post('/edit', (req, res) => {
+  console.log('edit tag:', req.body);
 
   res.redirect('/tags');
 });

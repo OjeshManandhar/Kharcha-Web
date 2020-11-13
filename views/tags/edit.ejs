@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./../includes/head.ejs') %>
+
+    <link rel="stylesheet" href="/css/forms.css" />
+  </head>
+
+  <body>
+    <main class="main">
+      <div class="main__container">
+        <form action="/tags/edit" class="form form--small" method="POST">
+          <div class="title">
+            <a href="/tags" class="title__back"><</a>
+
+            <h1 class="title__heading">Add Tag</h1>
+          </div>
+
+          <ul class="form__list">
+            <li class="form__item">
+              <label for="old-tag" class="form__label">
+                <span>Old Tag <span class="form__required">*</span></span>
+              </label>
+              <input
+                type="text"
+                class="form__input"
+                name="old-tag"
+                required
+                autocomplete="off"
+              />
+            </li>
+
+            <li class="form__item">
+              <label for="new-tag" class="form__label">
+                <span>New Tag <span class="form__required">*</span></span>
+              </label>
+              <input
+                type="text"
+                class="form__input"
+                name="new-tag"
+                required
+                autocomplete="off"
+              />
+            </li>
+          </ul>
+
+          <div class="button__button-container">
+            <a href="/tags" class="button__button-link">
+              <div class="button__button button__button--small">Cancel</div>
+            </a>
+            <button type="submit" class="button__button button__button--small">
+              Edit Tag
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
