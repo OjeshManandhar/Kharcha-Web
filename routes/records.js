@@ -1,62 +1,23 @@
 // packages
-const { render } = require('ejs');
 const express = require('express');
 
-// utils
-const { path } = require('./../utils/path');
-
-function _path(...args) {
-  return path('records', ...args);
-}
+// controllers
+const recordsController = require('./../controllers/records');
 
 const router = express.Router();
 
-router.get('/', function (req, res) {
-  res.render(_path('index'), { title: 'Records' });
-});
+// GET
+router.get('/', recordsController.get.index);
+router.get('/add', recordsController.get.add);
+router.get('/list', recordsController.get.list);
+router.get('/filter', recordsController.get.filter);
+router.get('/edit', recordsController.get.edit);
+router.get('/delete', recordsController.get.delete);
 
-router.get('/add', (req, res) => {
-  res.render(_path('add'), { title: 'Add Record' });
-});
-
-router.get('/list', (req, res) => {
-  res.render(_path('list'), { title: 'List Records' });
-});
-
-router.get('/filter', (req, res) => {
-  res.render(_path('filter'), { title: 'Filter Records' });
-});
-
-router.get('/edit', (req, res) => {
-  res.render(_path('edit'), { title: 'Edit Record' });
-});
-
-router.get('/delete', (req, res) => {
-  res.render(_path('delete'), { title: 'Delete Record' });
-});
-
-router.post('/add', (req, res) => {
-  console.log('add record:', req.body);
-
-  res.redirect('/records');
-});
-
-router.post('/filter', (req, res) => {
-  console.log('filter record:', req.body);
-
-  res.redirect('/records');
-});
-
-router.post('/edit', (req, res) => {
-  console.log('edit record:', req.body);
-
-  res.redirect('/records');
-});
-
-router.post('/delete', (req, res) => {
-  console.log('delete record:', req.body);
-
-  res.redirect('/records');
-});
+//POST
+router.post('/add', recordsController.post.add);
+router.post('/filter', recordsController.post.filter);
+router.post('/edit', recordsController.post.edit);
+router.post('/delete', recordsController.post.delete);
 
 module.exports = router;
