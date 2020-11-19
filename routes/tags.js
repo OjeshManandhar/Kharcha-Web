@@ -1,6 +1,9 @@
 // packages
 const express = require('express');
 
+// controllers
+const tagsController = require('./../controllers/tags');
+
 // utils
 const { path } = require('./../utils/path');
 
@@ -10,52 +13,26 @@ function _path(...args) {
 
 const router = express.Router();
 
-router.get('/', function (req, res) {
-  res.render(_path('index'), { title: 'Tags' });
-});
+// GET
+router.get('/', tagsController.get.index);
 
-router.get('/add', (req, res) => {
-  res.render(_path('add'), { title: 'Add Tag' });
-});
+router.get('/add', tagsController.get.add);
 
-router.get('/list', (req, res) => {
-  res.render(_path('list'), { title: 'List Tags' });
-});
+router.get('/list', tagsController.get.list);
 
-router.get('/search', (req, res) => {
-  res.render(_path('search'), { title: 'Search Tag' });
-});
+router.get('/search', tagsController.get.search);
 
-router.get('/edit', (req, res) => {
-  res.render(_path('edit'), { title: 'Edit Tag' });
-});
+router.get('/edit', tagsController.get.edit);
 
-router.get('/delete', (req, res) => {
-  res.render(_path('delete'), { title: 'Delete Tag' });
-});
+router.get('/delete', tagsController.get.delete);
 
-router.post('/add', (req, res) => {
-  console.log('add tag:', req.body);
+// POST
+router.post('/add', tagsController.post.add);
 
-  res.redirect('/tags');
-});
+router.post('/search', tagsController.post.search);
 
-router.post('/search', (req, res) => {
-  console.log('search tag:', req.body);
+router.post('/edit', tagsController.post.edit);
 
-  res.redirect('/tags');
-});
-
-router.post('/edit', (req, res) => {
-  console.log('edit tag:', req.body);
-
-  res.redirect('/tags');
-});
-
-router.post('/delete', (req, res) => {
-  console.log('delete tag:', req.body);
-
-  res.redirect('/tags');
-});
+router.post('/delete', tagsController.post.delete);
 
 module.exports = router;
