@@ -2,6 +2,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+// controllers
+const errorController = require('./controllers/error');
+
 // routes
 const homeRouter = require('./routes/home');
 const tagsRouter = require('./routes/tags');
@@ -28,8 +31,6 @@ app.use('/tags', tagsRouter);
 app.use('/records', recordsRouter);
 
 // 404
-app.use((req, res) => {
-  res.status(404).render(path('404'), { title: 'Page Not Found' });
-});
+app.use(errorController.get404);
 
 app.listen(3000, () => console.log('Server started at port 3000'));
