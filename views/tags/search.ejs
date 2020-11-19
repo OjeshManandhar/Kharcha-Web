@@ -9,7 +9,12 @@
   <body>
     <main class="main">
       <div class="main__container">
-        <form action="/tags/search" class="form form--small" method="POST">
+        <form
+          action="/tags/search"
+          class="form form--small"
+          method="POST"
+          autocomplete="off"
+        >
           <div class="title">
             <a href="/tags" class="title__back"><</a>
 
@@ -21,13 +26,7 @@
               <label for="tag" class="form__label">
                 <span>Tag <span class="form__required">*</span></span>
               </label>
-              <input
-                type="text"
-                class="form__input"
-                name="tag"
-                required
-                autocomplete="off"
-              />
+              <input type="text" class="form__input" name="tag" required />
             </li>
           </ul>
 

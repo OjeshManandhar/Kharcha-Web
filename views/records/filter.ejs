@@ -9,7 +9,12 @@
   <body>
     <main class="main">
       <div class="main__container">
-        <form action="/records/filter" class="form" method="POST">
+        <form
+          action="/records/filter"
+          class="form"
+          method="POST"
+          autocomplete="off"
+        >
           <div class="title">
             <a href="/records" class="title__back"><</a>
 
@@ -21,19 +26,9 @@
               <div class="form__label">
                 <span>ID</span>
               </div>
-              <input
-                type="number"
-                class="form__input"
-                name="id-start"
-                autocomplete="off"
-              />
+              <input type="number" class="form__input" name="id-start" />
               <span class="form__multi-input-text">to</span>
-              <input
-                type="number"
-                class="form__input"
-                name="id-end"
-                autocomplete="off"
-              />
+              <input type="number" class="form__input" name="id-end" />
             </li>
 
             <li class="form__item">
@@ -138,7 +133,6 @@
                     type="text"
                     name="tags"
                     class="form__input"
-                    autocomplete="off"
                     placeholder="Comma separated tags list"
                   />
                 </div>
@@ -160,7 +154,6 @@
                 type="text"
                 name="tags"
                 class="form__input"
-                autocomplete="off"
                 placeholder="Comma separated tags list"
               />
             </li>

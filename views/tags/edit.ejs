@@ -9,7 +9,12 @@
   <body>
     <main class="main">
       <div class="main__container">
-        <form action="/tags/edit" class="form form--small" method="POST">
+        <form
+          action="/tags/edit"
+          class="form form--small"
+          method="POST"
+          autocomplete="off"
+        >
           <div class="title">
             <a href="/tags" class="title__back"><</a>
 
@@ -21,26 +26,14 @@
               <label for="old-tag" class="form__label">
                 <span>Old Tag <span class="form__required">*</span></span>
               </label>
-              <input
-                type="text"
-                class="form__input"
-                name="old-tag"
-                required
-                autocomplete="off"
-              />
+              <input type="text" class="form__input" name="old-tag" required />
             </li>
 
             <li class="form__item">
               <label for="new-tag" class="form__label">
                 <span>New Tag <span class="form__required">*</span></span>
               </label>
-              <input
-                type="text"
-                class="form__input"
-                name="new-tag"
-                required
-                autocomplete="off"
-              />
+              <input type="text" class="form__input" name="new-tag" required />
             </li>
           </ul>
 

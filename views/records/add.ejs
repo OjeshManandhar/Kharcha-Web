@@ -9,7 +9,12 @@
   <body>
     <main class="main">
       <div class="main__container">
-        <form action="/records/add" class="form" method="POST">
+        <form
+          action="/records/add"
+          class="form"
+          method="POST"
+          autocomplete="off"
+        >
           <div class="title">
             <a href="/records" class="title__back"><</a>
 
@@ -82,7 +87,6 @@
                 type="text"
                 name="tags"
                 class="form__input"
-                autocomplete="off"
                 placeholder="Comma separated tags list"
               />
             </li>
