@@ -1,0 +1,80 @@
+<li class="form__item">
+  <label for="date" class="form__label">
+    <span>Date <span class="form__required">*</span></span>
+  </label>
+  <input
+    type="date"
+    class="form__input"
+    name="date"
+    required
+    autofocus=<%= newRecord %>
+  />
+</li>
+
+<li class="form__item">
+  <label for="amount" class="form__label">
+    <span>Amount <span class="form__required">*</span></span>
+  </label>
+  <span class="form__amount">Rs.</span>
+  <input
+    type="number"
+    class="form__input"
+    name="amount"
+    step="0.01"
+    min="0"
+    required
+  />
+</li>
+
+<li class="form__item">
+  <div class="form__label">
+    <span>Type <span class="form__required">*</span></span>
+  </div>
+  <div class="form__radio-container">
+    <div class="form__radio">
+      <input
+        type="radio"
+        class="form__radio-input"
+        name="type"
+        value="debit"
+        required
+        checked="checked"
+      />
+      <label for="type" class="form__radio-label">Debit</label>
+    </div>
+    <div class="form__radio">
+      <input
+        type="radio"
+        class="form__radio-input"
+        name="type"
+        value="credit"
+        required
+      />
+      <label for="type" class="form__radio-label">Credit</label>
+    </div>
+  </div>
+</li>
+
+<li class="form__item">
+  <label for="tags" class="form__label">
+    <span>Tags</span>
+  </label>
+  <input
+    type="text"
+    name="tags"
+    class="form__input"
+    placeholder="Comma separated tags list"
+  />
+</li>
+
+<li class="form__item">
+  <label for="description" class="form__label">
+    <span>Description</span>
+  </label>
+  <textarea
+    wrap="hard"
+    class="form__textarea"
+    name="description"
+    placeholder="Description"
+  ></textarea>
+</li>
