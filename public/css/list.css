@@ -74,6 +74,10 @@
   border: 1px solid #00695c;
 }
 
+.list__block--width-100 {
+  width: 100%;
+}
+
 .list__block * {
   font-size: 20px;
   color: #00695c;

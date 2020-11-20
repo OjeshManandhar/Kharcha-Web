@@ -36,88 +36,94 @@
 
           <div class="divider"></div>
 
-          <form
-            id="edit-form"
-            action="/records/edit"
-            class="form form--width-100"
-            method="POST"
-            autocomplete="off"
-          >
-            <ul class="form__list">
-              <li class="form__item">
-                <label for="date" class="form__label">
-                  Date <span class="forn__required">*</span>
-                </label>
-                <input type="date" class="form__input" required />
-              </li>
+          <div class="block">
+            <form
+              id="edit-form"
+              action="/records/edit"
+              class="form form--width-100 visibility-hidden"
+              method="POST"
+              autocomplete="off"
+            >
+              <ul class="form__list">
+                <li class="form__item">
+                  <label for="date" class="form__label">
+                    Date <span class="forn__required">*</span>
+                  </label>
+                  <input type="date" class="form__input" required />
+                </li>
 
-              <li class="form__item">
-                <label for="amount" class="form__label">
-                  <span>Amount <span class="form__required">*</span></span>
-                </label>
-                <span class="form__amount">Rs.</span>
-                <input
-                  type="number"
-                  class="form__input"
-                  name="amount"
-                  required
-                />
-              </li>
+                <li class="form__item">
+                  <label for="amount" class="form__label">
+                    <span>Amount <span class="form__required">*</span></span>
+                  </label>
+                  <span class="form__amount">Rs.</span>
+                  <input
+                    type="number"
+                    class="form__input"
+                    name="amount"
+                    required
+                  />
+                </li>
 
-              <li class="form__item">
-                <div class="form__label">
-                  <span>Type <span class="form__required">*</span></span>
-                </div>
-                <div class="form__radio-container">
-                  <div class="form__radio">
-                    <input
-                      type="radio"
-                      class="form__radio-input"
-                      name="type"
-                      value="debit"
-                      required
-                      checked="checked"
-                    />
-                    <label for="type" class="form__radio-label">Debit</label>
+                <li class="form__item">
+                  <div class="form__label">
+                    <span>Type <span class="form__required">*</span></span>
                   </div>
-                  <div class="form__radio">
-                    <input
-                      type="radio"
-                      class="form__radio-input"
-                      name="type"
-                      value="credit"
-                      required
-                    />
-                    <label for="type" class="form__radio-label">Credit </label>
+                  <div class="form__radio-container">
+                    <div class="form__radio">
+                      <input
+                        type="radio"
+                        class="form__radio-input"
+                        name="type"
+                        value="debit"
+                        required
+                        checked="checked"
+                      />
+                      <label for="type" class="form__radio-label">Debit</label>
+                    </div>
+                    <div class="form__radio">
+                      <input
+                        type="radio"
+                        class="form__radio-input"
+                        name="type"
+                        value="credit"
+                        required
+                      />
+                      <label for="type" class="form__radio-label"
+                        >Credit
+                      </label>
+                    </div>
                   </div>
-                </div>
-              </li>
+                </li>
 
-              <li class="form__item">
-                <label for="tags" class="form__label">
-                  <span>Tags</span>
-                </label>
-                <input
-                  type="text"
-                  name="tags"
-                  class="form__input"
-                  placeholder="Comma separated tags list"
-                />
-              </li>
+                <li class="form__item">
+                  <label for="tags" class="form__label">
+                    <span>Tags</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="tags"
+                    class="form__input"
+                    placeholder="Comma separated tags list"
+                  />
+                </li>
 
-              <li class="form__item">
-                <label for="description" class="form__label">
-                  <span>Description</span>
-                </label>
-                <textarea
-                  wrap="hard"
-                  class="form__textarea"
-                  name="description"
-                  placeholder="Description"
-                ></textarea>
-              </li>
-            </ul>
-          </form>
+                <li class="form__item">
+                  <label for="description" class="form__label">
+                    <span>Description</span>
+                  </label>
+                  <textarea
+                    wrap="hard"
+                    class="form__textarea"
+                    name="description"
+                    placeholder="Description"
+                  ></textarea>
+                </li>
+              </ul>
+            </form>
+
+            <div class="message">Enter ID</div>
+          </div>
 
           <div class="button__button-container">
             <a href="/records" class="button__button-link">
