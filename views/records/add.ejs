@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('./../includes/head.ejs') %>
+    <%- include('./../includes/head.ejs'); %>
 
     <link rel="stylesheet" href="/css/forms.css" />
   </head>
@@ -35,7 +35,7 @@
                 disabled
               />
             </li>
-            
+
             <%- include('./../includes/recordForm.ejs', {newRecord: true}) %>
           </ul>
 
