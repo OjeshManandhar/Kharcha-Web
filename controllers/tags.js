@@ -36,7 +36,7 @@ module.exports.get = {
     res.render(_path('edit'), { title: 'Edit Tag' });
   },
   delete: (req, res) => {
-    res.render(_path('delete'), { title: 'Delete Tag' });
+    res.render(_path('delete'), { title: 'Delete Tags' });
   }
 };
 

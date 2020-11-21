@@ -35,20 +35,14 @@ class Tag {
       return null;
     }
 
-    let edited = false;
-    const newTags = tags.map(tag => {
-      if (tag === oldTag) {
-        edited = true;
-        return newTag;
-      }
+    const oldTagIndex = tags.findIndex(tag => tag === oldTag);
 
-      return tag;
-    });
-
-    tags.splice(0, tags.length);
-    tags.push(...newTags);
-
-    return edited;
+    if (oldTagIndex !== -1) {
+      tags[oldTagIndex] = newTag;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   static search(name) {
@@ -64,22 +58,19 @@ class Tag {
   }
 
   static delete(tagsList) {
+    let deleted = false;
     const list = tagsList.split(',').map(tag => tag.trim());
 
-    let newTags = [...tags];
-
     list.forEach(tag => {
-      newTags = newTags.filter(t => t !== tag);
+      const index = tags.findIndex(t => t === tag);
+
+      if (index !== -1) {
+        deleted = true;
+        tags.splice(index, 1);
+      }
     });
 
-    if (newTags.length < tags.length) {
-      tags.splice(0, tags.length);
-      tags.push(...newTags);
-
-      return true;
-    }
-
-    return false;
+    return deleted;
   }
 
   static getExistingTags(tagsList) {
