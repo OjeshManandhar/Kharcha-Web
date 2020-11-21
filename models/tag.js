@@ -63,8 +63,14 @@ class Tag {
     return foundTags;
   }
 
-  static delete(name) {
-    const newTags = tags.filter(tag => tag !== name);
+  static delete(tagsList) {
+    const list = tagsList.split(',').map(tag => tag.trim());
+
+    let newTags = [...tags];
+
+    list.forEach(tag => {
+      newTags = newTags.filter(t => t !== tag);
+    });
 
     if (newTags.length < tags.length) {
       tags.splice(0, tags.length);
