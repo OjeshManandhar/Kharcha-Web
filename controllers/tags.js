@@ -17,7 +17,11 @@ module.exports.get = {
     res.render(_path('add'), { title: 'Add Tag' });
   },
   list: (req, res) => {
-    res.render(_path('list'), { title: 'List Tags', tags: Tags.list() });
+    res.render(_path('list'), {
+      title: 'List Tags',
+      backLink: '/tags',
+      tags: Tags.list()
+    });
   },
   search: (req, res) => {
     res.render(_path('search'), { title: 'Search Tags' });
@@ -43,10 +47,19 @@ module.exports.post = {
   },
   search: (req, res) => {
     const tag = req.body.tag;
-
     console.log('search tag:', tag);
 
-    res.redirect('/tags');
+    const foundTags = Tags.search(tag);
+
+    if (foundTags.length) {
+      res.render(_path('list'), {
+        title: 'List Tags',
+        backLink: '/tags/search',
+        tags: foundTags
+      });
+    } else {
+      res.redirect('/tags');
+    }
   },
   edit: (req, res) => {
     const oldTag = req.body['old-tag'];

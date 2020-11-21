@@ -1,4 +1,4 @@
-const tags = [];
+const tags = ['qwe', 'asd', 'zxc', 'qwer', 'QWE', 'QWER'];
 
 class Tag {
   static save(name) {
@@ -50,7 +50,7 @@ class Tag {
     const foundTags = [];
 
     tags.forEach(tag => {
-      if (tag.lowercase().indexOf(name.lowercase()) !== -1) {
+      if (tag.toLowerCase().indexOf(name.toLowerCase()) !== -1) {
         foundTags.push(tag);
       }
     });

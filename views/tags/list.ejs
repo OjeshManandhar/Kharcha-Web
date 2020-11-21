@@ -10,7 +10,7 @@
     <main class="main">
       <div class="main__container">
         <div class="list list--small">
-          <%- include('./../includes/title.ejs', {backLink: '/tags'}); %>
+          <%- include('./../includes/title.ejs'); %>
 
           <div class="list__window list__window--small">
             <% for (tag of tags) { %>
@@ -19,7 +19,7 @@
           </div>
 
           <div class="button__button-container">
-            <a href="/tags" class="button__button-link">
+            <a href="<%= backLink %>" class="button__button-link">
               <div class="button__button button__button--small">Back</div>
             </a>
           </div>
