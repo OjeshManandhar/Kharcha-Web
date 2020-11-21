@@ -79,19 +79,8 @@
 
             <div class="message">Enter ID</div>
           </div>
-
-          <div class="button__button-container">
-            <a href="/records" class="button__button-link">
-              <div class="button__button button__button--small">Cancel</div>
-            </a>
-            <button
-              type="submit"
-              class="button__button button__button--small"
-              disabled="true"
-            >
-              <%= title %>
-            </button>
-          </div>
+          
+          <%- include('./../includes/buttonRow.ejs', {cancelLink: '/records', disabled: true}); %>
         </form>
       </div>
     </main>

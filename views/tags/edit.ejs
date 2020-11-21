@@ -42,15 +42,8 @@
               <input type="text" class="form__input" name="new-tag" required />
             </li>
           </ul>
-
-          <div class="button__button-container">
-            <a href="/tags" class="button__button-link">
-              <div class="button__button button__button--small">Cancel</div>
-            </a>
-            <button type="submit" class="button__button button__button--small">
-              <%= title %>
-            </button>
-          </div>
+          
+          <%- include('./../includes/buttonRow.ejs', {cancelLink: '/tags', disabled: false}); %>
         </form>
       </div>
     </main>

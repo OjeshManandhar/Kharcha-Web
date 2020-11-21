@@ -1,0 +1,12 @@
+<div class="button__button-container">
+  <a href="<%= cancelLink %>" class="button__button-link">
+    <div class="button__button button__button--small">Cancel</div>
+  </a>
+  <button
+    type="submit"
+    class="button__button button__button--small"
+    <% if (disabled) { %>disabled<% }  %>
+  >
+    <%= title %>
+  </button>
+</div>
