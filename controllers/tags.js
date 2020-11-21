@@ -1,3 +1,6 @@
+// models
+const Tags = require('./../models/tag');
+
 // utils
 const { path } = require('./../utils/path');
 
@@ -30,7 +33,10 @@ module.exports.get = {
 // POST
 module.exports.post = {
   add: (req, res) => {
-    console.log('add tag:', req.body);
+    const tag = req.body.tag;
+    const saved = Tags.save(tag);
+
+    console.log(`${tag} is ${saved ? 'saved' : 'not saved'}`);
 
     res.redirect('/tags');
   },

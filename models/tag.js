@@ -1,11 +1,15 @@
 const tags = [];
 
 class Tag {
-  constructor(name) {
-    // create new tag
-    this.name = name;
+  static save(name) {
+    const found = tags.find(tag => tag === name);
 
-    tags.push(this);
+    if (found) {
+      return false;
+    } else {
+      tags.push(name);
+      return true;
+    }
   }
 
   static list() {
