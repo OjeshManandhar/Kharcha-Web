@@ -17,7 +17,7 @@ module.exports.get = {
     res.render(_path('list'), { title: 'List Tags' });
   },
   search: (req, res) => {
-    res.render(_path('search'), { title: 'Search Tag' });
+    res.render(_path('search'), { title: 'Search Tags' });
   },
   edit: (req, res) => {
     res.render(_path('edit'), { title: 'Edit Tag' });

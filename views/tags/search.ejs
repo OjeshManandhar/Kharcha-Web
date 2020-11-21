@@ -21,20 +21,7 @@
             <h1 class="title__heading"><%= title %></h1>
           </div>
 
-          <ul class="form__list">
-            <li class="form__item">
-              <label for="tag" class="form__label">
-                <span>Tag <span class="form__required">*</span></span>
-              </label>
-              <input
-                type="text"
-                class="form__input"
-                name="tag"
-                required
-                autofocus
-              />
-            </li>
-          </ul>
+          <%- include('./../includes/tagsForm.ejs'); %>
 
           <div class="button__button-container">
             <a href="/tags" class="button__button-link">
