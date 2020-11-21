@@ -17,8 +17,23 @@ class Tag {
   }
 
   static edit(oldTag, newTag) {
+    /**
+     * Return values denote following
+     * null => newTag already exists
+     * true => oldTag is replaced by newTag
+     * false => oldTag not found
+     */
+
+    // Check if newTag already exists
+    const found = tags.find(tag => tag === newTag);
+    if (found) {
+      return null;
+    }
+
+    let edited = false;
     const newTags = tags.map(tag => {
       if (tag === oldTag) {
+        edited = true;
         return newTag;
       }
 
@@ -27,6 +42,8 @@ class Tag {
 
     tags.splice(0, tags.length);
     tags.push(...newTags);
+
+    return edited;
   }
 
   static search(name) {
@@ -44,8 +61,14 @@ class Tag {
   static delete(name) {
     const newTags = tags.filter(tag => tag !== name);
 
-    tags.splice(0, tags.length);
-    tags.push(...newTags);
+    if (newTags.length < tags.length) {
+      tags.splice(0, tags.length);
+      tags.push(...newTags);
+
+      return true;
+    }
+
+    return false;
   }
 }
 

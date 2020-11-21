@@ -34,6 +34,7 @@ module.exports.get = {
 module.exports.post = {
   add: (req, res) => {
     const tag = req.body.tag;
+
     const saved = Tags.save(tag);
 
     console.log(`${tag} is ${saved ? 'saved' : 'not saved'}`);
@@ -41,17 +42,28 @@ module.exports.post = {
     res.redirect('/tags');
   },
   search: (req, res) => {
-    console.log('search tag:', req.body);
+    const tag = req.body.tag;
+
+    console.log('search tag:', tag);
 
     res.redirect('/tags');
   },
   edit: (req, res) => {
-    console.log('edit tag:', req.body);
+    const oldTag = req.body['old-tag'];
+    const newTag = req.body['new-tag'];
+
+    const edited = Tags.edit(oldTag, newTag);
+
+    console.log('edit tag:', oldTag, newTag, edited);
 
     res.redirect('/tags');
   },
   delete: (req, res) => {
-    console.log('delete tag:', req.body);
+    const tag = req.body.tag;
+
+    const deleted = Tags.delete(tag);
+
+    console.log(`${tag} is ${deleted ? 'deleted' : 'not deleted'}`);
 
     res.redirect('/tags');
   }
