@@ -15,11 +15,11 @@
           method="POST"
           autocomplete="off"
         >
-          <%- include('./../includes/title.ejs', {backLink: '/tags'}); %>
+          <%- include('./../includes/title.ejs', { backLink: '/tags' }); %>
 
-          <%- include('./../includes/tagsForm.ejs'); %>
+          <%- include('./../includes/tagsForm.ejs', { multiple: true }); %>
           
-          <%- include('./../includes/buttonRow.ejs', {cancelLink: '/tags', disabled: false}); %>
+          <%- include('./../includes/buttonRow.ejs', { cancelLink: '/tags', disabled: false }); %>
         </form>
       </div>
     </main>
