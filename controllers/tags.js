@@ -1,5 +1,5 @@
 // models
-const Tags = require('./../models/tag');
+const Tag = require('./../models/tag');
 
 // utils
 const { path } = require('./../utils/path');
@@ -11,39 +11,39 @@ function _path(...args) {
 // GET
 module.exports.get = {
   index: (req, res) => {
-    res.render(_path('index'), { title: 'Tags' });
+    res.render(_path('index'), { title: 'Tag' });
   },
   add: (req, res) => {
-    res.render(_path('add'), { title: 'Add Tags' });
+    res.render(_path('add'), { title: 'Add Tag' });
   },
   list: (req, res) => {
     // console.log(
-    //   Tags.getExistingTags('qw er, asdf   , qwe  , QWE, asd, qwer rty, 123'),
-    //   Tags.getExistingTags(''),
-    //   Tags.getExistingTags('123')
+    //   Tag.getExistingTags('qw er, asdf   , qwe  , QWE, asd, qwer rty, 123'),
+    //   Tag.getExistingTags(''),
+    //   Tag.getExistingTags('123')
     // );
 
     res.render(_path('list'), {
-      title: 'List Tags',
+      title: 'List Tag',
       backLink: '/tags',
-      tags: Tags.list()
+      tags: Tag.list()
     });
   },
   search: (req, res) => {
-    res.render(_path('search'), { title: 'Search Tags' });
+    res.render(_path('search'), { title: 'Search Tag' });
   },
   edit: (req, res) => {
     res.render(_path('edit'), { title: 'Edit Tag' });
   },
   delete: (req, res) => {
-    res.render(_path('delete'), { title: 'Delete Tags' });
+    res.render(_path('delete'), { title: 'Delete Tag' });
   }
 };
 
 // POST
 module.exports.post = {
   add: (req, res) => {
-    const saved = Tags.add(req.body.tag);
+    const saved = Tag.add(req.body.tag);
 
     console.log(`${req.body.tag} is ${saved ? 'saved' : 'not saved'}`);
 
@@ -52,11 +52,11 @@ module.exports.post = {
   search: (req, res) => {
     console.log('search tag:', req.body.tag);
 
-    const foundTags = Tags.search(req.body.tag);
+    const foundTags = Tag.search(req.body.tag);
 
     if (foundTags.length) {
       res.render(_path('list'), {
-        title: 'List Tags',
+        title: 'List Tag',
         backLink: '/tags/search',
         tags: foundTags
       });
@@ -68,14 +68,14 @@ module.exports.post = {
     const oldTag = req.body['old-tag'];
     const newTag = req.body['new-tag'];
 
-    const edited = Tags.edit(oldTag, newTag);
+    const edited = Tag.edit(oldTag, newTag);
 
     console.log('edit tag:', oldTag, newTag, edited);
 
     res.redirect('/tags');
   },
   delete: (req, res) => {
-    const deleted = Tags.delete(req.body.tag);
+    const deleted = Tag.delete(req.body.tag);
 
     console.log(`${req.body.tag} is ${deleted ? 'deleted' : 'not deleted'}`);
 
