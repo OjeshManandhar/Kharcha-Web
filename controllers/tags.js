@@ -17,11 +17,11 @@ module.exports.get = {
     res.render(_path('add'), { title: 'Add Tags' });
   },
   list: (req, res) => {
-    console.log(
-      Tags.getExistingTags('qw er, asdf   , qwe  , QWE, asd, qwer rty, 123'),
-      Tags.getExistingTags(''),
-      Tags.getExistingTags('123')
-    );
+    // console.log(
+    //   Tags.getExistingTags('qw er, asdf   , qwe  , QWE, asd, qwer rty, 123'),
+    //   Tags.getExistingTags(''),
+    //   Tags.getExistingTags('123')
+    // );
 
     res.render(_path('list'), {
       title: 'List Tags',

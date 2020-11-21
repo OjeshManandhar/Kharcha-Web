@@ -9,7 +9,7 @@ class Tag {
       const found = tags.find(t => t === tag);
 
       if (!found) {
-        tags.push(tag);
+        tags.unshift(tag);
         added = true;
       }
     });
