@@ -10,7 +10,8 @@
     <main class="main">
       <div class="main__container">
         <div class="list list--small">
-          <%- include('./../includes/title.ejs', { backLink: '/tags' }); %>
+          <%# backLink will be provided from controller so don't include it in the following include  %>
+          <%- include('./../includes/title.ejs'); %>
 
           <div class="list__window list__window--small">
             <% for (tag of tags) { %>
