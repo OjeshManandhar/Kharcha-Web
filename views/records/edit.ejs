@@ -23,7 +23,6 @@
                 <span>ID <span class="form__required">*</span></span>
               </label>
               <input
-                id="edit-form-id"
                 type="number"
                 class="form__input"
                 form="edit-form"
@@ -42,7 +41,7 @@
             <form
               id="edit-form"
               action="/records/edit"
-              class="form form--width-100 visibility-hidden"
+              class="form form--width-100 record visibility-hidden"
               method="POST"
               autocomplete="off"
             >
@@ -71,5 +70,7 @@
         </div>
       </div>
     </main>
+
+    <script src="/js/form.js"></script>
   </body>
 </html>
