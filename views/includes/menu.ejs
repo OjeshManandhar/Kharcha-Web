@@ -1,0 +1,9 @@
+<ul class="menu__list">
+  <% for (item of items) { %>
+    <li class="menu__item <%= item.marginTop ? 'menu__item--margin-top' : '' %>">
+      <a href="<%= item.link %>">
+        <p class="menu__link"><%= item.name %></p>
+      </a>
+    </li>
+  <% } %>
+</ul>

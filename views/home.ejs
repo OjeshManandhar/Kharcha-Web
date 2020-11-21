@@ -10,31 +10,29 @@
     <main class="main">
       <div class="main__container">
         <div class="menu">
-          <%- include('./includes/title.ejs', {backLink: ''}); %>
+          <%- include('./includes/title.ejs', { backLink: '' }); %>
 
-          <ul class="menu__list">
-            <li class="menu__item">
-              <a href="/records">
-                <p class="menu__link">Records</p>
-              </a>
-            </li>
-            <li class="menu__item">
-              <a href="/tags">
-                <p class="menu__link">Tags</p>
-              </a>
-            </li>
-            <!-- <li class="menu__item">
-              <a href="#">
-                <p class="menu__link">Settings</p>
-              </a>
-            </li> -->
-
-            <!-- <li class="menu__item menu__item--margin-top">
-              <a href="#">
-                <p class="menu__link">Logout</p>
-              </a>
-            </li> -->
-          </ul>
+          <%- 
+            include('./includes/menu.ejs', { items: [
+              {
+                link: '/records',
+                name: 'Records'
+              },
+              {
+                link: '/tags',
+                name: 'Tags',
+              },
+              // {
+              //   link: '/',
+              //   name: 'Settings',
+              // },
+              // {
+              //   link: '/',
+              //   name: 'Log Out',
+              //   marginTop: true
+              // }
+            ]}); 
+          %>
         </div>
       </div>
     </main>

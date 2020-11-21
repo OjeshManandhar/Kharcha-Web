@@ -10,41 +10,37 @@
     <main class="main">
       <div class="main__container">
         <div class="menu">
-          <%- include('./../includes/title.ejs', {backLink: '/home'}); %>
+          <%- include('./../includes/title.ejs', { backLink: '/home' }); %>
 
-          <ul class="menu__list">
-            <li class="menu__item">
-              <a href="/records/add">
-                <p class="menu__link">Add Record</p>
-              </a>
-            </li>
-            <li class="menu__item">
-              <a href="/records/list">
-                <p class="menu__link">List Records</p>
-              </a>
-            </li>
-            <li class="menu__item">
-              <a href="/records/filter">
-                <p class="menu__link">Filter Records</p>
-              </a>
-            </li>
-            <li class="menu__item">
-              <a href="/records/edit">
-                <p class="menu__link">Edit Record</p>
-              </a>
-            </li>
-            <li class="menu__item">
-              <a href="/records/delete">
-                <p class="menu__link">Delete Record</p>
-              </a>
-            </li>
-
-            <li class="menu__item menu__item--margin-top">
-              <a href="/home">
-                <p class="menu__link">Home</p>
-              </a>
-            </li>
-          </ul>
+          <%-
+            include('./../includes/menu.ejs', { items: [
+              {
+                link: '/records/add',
+                name: 'Add Record'
+              },
+              {
+                link: '/records/list',
+                name: 'List Records'
+              },
+              {
+                link: '/records/filter',
+                name: 'Filter Records'
+              },
+              {
+                link: '/records/edit',
+                name: 'Edit Record'
+              },
+              {
+                link: '/records/delete',
+                name: 'Delete Record'
+              },
+              {
+                link: '/home',
+                name: 'Home',
+                marginTop: true
+              }
+            ]});
+          %>
         </div>
       </div>
     </main>

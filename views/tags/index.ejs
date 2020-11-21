@@ -12,39 +12,35 @@
         <div class="menu">
           <%- include('./../includes/title.ejs', {backLink: '/home'}); %>
 
-          <ul class="menu__list">
-            <li class="menu__item">
-              <a href="/tags/add">
-                <p class="menu__link">Add Tag</p>
-              </a>
-            </li>
-            <li class="menu__item">
-              <a href="/tags/list">
-                <p class="menu__link">List Tags</p>
-              </a>
-            </li>
-            <li class="menu__item">
-              <a href="/tags/search">
-                <p class="menu__link">Search Tags</p>
-              </a>
-            </li>
-            <li class="menu__item">
-              <a href="/tags/edit">
-                <p class="menu__link">Edit Tags</p>
-              </a>
-            </li>
-            <li class="menu__item">
-              <a href="/tags/delete">
-                <p class="menu__link">Delete Tag</p>
-              </a>
-            </li>
-
-            <li class="menu__item menu__item--margin-top">
-              <a href="/home">
-                <p class="menu__link">Home</p>
-              </a>
-            </li>
-          </ul>
+          <%-
+            include('./../includes/menu.ejs', { items: [
+              {
+                link: '/tags/add',
+                name: 'Add Tag'
+              },
+              {
+                link: '/tags/list',
+                name: 'List Tags'
+              },
+              {
+                link: '/tags/search',
+                name: 'Search Tags'
+              },
+              {
+                link: '/tags/edit',
+                name: 'Edit Tag'
+              },
+              {
+                link: '/tags/delete',
+                name: 'Delete Tag'
+              },
+              {
+                link: '/home',
+                name: 'Home',
+                marginTop: true
+              }
+            ]});
+          %>
         </div>
       </div>
     </main>
