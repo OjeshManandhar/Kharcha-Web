@@ -10,7 +10,7 @@
     <main class="main">
       <div class="main__container">
         <div class="list list--small">
-          <%- include('./../includes/title.ejs'); %>
+          <%- include('./../includes/title.ejs', { backLink: '/tags' }); %>
 
           <div class="list__window list__window--small">
             <% for (tag of tags) { %>

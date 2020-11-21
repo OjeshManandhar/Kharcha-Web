@@ -11,7 +11,7 @@
     <main class="main">
       <div class="main__container">
         <div class="form">
-          <%- include('./../includes/title.ejs', {backLink: '/records'}); %>
+          <%- include('./../includes/title.ejs', { backLink: '/records' }); %>
 
           <ul class="form__list">
             <li class="form__item">
@@ -42,16 +42,15 @@
               autocomplete="off"
             >
               <ul class="form__list">
-                <%- include('./../includes/recordForm.ejs', {newRecord: false});
+                <%- include('./../includes/recordForm.ejs', { newRecord: false });
                 %>
               </ul>
             </form>
 
             <div class="message">Enter ID</div>
           </div>
-
           
-          <%- include('./../includes/buttonRow.ejs', {cancelLink: '/records', disabled: true}); %>
+          <%- include('./../includes/buttonRow.ejs', { cancelLink: '/records', disabled: false }); %>
         </div>
       </div>
     </main>
