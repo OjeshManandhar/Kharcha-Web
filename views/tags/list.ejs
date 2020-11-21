@@ -13,19 +13,9 @@
           <%- include('./../includes/title.ejs', {backLink: '/tags'}); %>
 
           <div class="list__window list__window--small">
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
-            <div class="list__block">Tag</div>
+            <% for (tag of tags) { %>
+              <div class="list__block"><%= tag %></div>
+            <% } %>
           </div>
 
           <div class="button__button-container">
