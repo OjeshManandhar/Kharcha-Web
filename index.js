@@ -19,11 +19,11 @@ const app = express();
 app.set('views', 'views');
 app.set('view engine', 'ejs');
 
-// request parser
-app.use(bodyParser.urlencoded({ extended: false }));
-
 // Static
 app.use(express.static(path('public')));
+
+// request parser
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routers
 app.use('/', homeRouter);
