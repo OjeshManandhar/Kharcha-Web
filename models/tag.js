@@ -88,8 +88,15 @@ class Tag {
     }
 
     const list = tagsList.split(',').map(tag => tag.trim());
+    const foundTags = [];
 
-    console.log(list);
+    list.forEach(tag => {
+      const found = tags.find(t => t === tag);
+
+      if (found) foundTags.push(tag);
+    });
+
+    return foundTags;
   }
 }
 
