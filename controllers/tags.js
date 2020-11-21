@@ -14,9 +14,11 @@ module.exports.get = {
     res.render(_path('index'), { title: 'Tags' });
   },
   add: (req, res) => {
-    res.render(_path('add'), { title: 'Add Tag' });
+    res.render(_path('add'), { title: 'Add Tags' });
   },
   list: (req, res) => {
+    // Tags.getExistingTags('qw er, asdf   , qwe  , QWE');
+
     res.render(_path('list'), {
       title: 'List Tags',
       backLink: '/tags',
@@ -30,26 +32,23 @@ module.exports.get = {
     res.render(_path('edit'), { title: 'Edit Tag' });
   },
   delete: (req, res) => {
-    res.render(_path('delete'), { title: 'Delete Tag' });
+    res.render(_path('delete'), { title: 'Delete Tags' });
   }
 };
 
 // POST
 module.exports.post = {
   add: (req, res) => {
-    const tag = req.body.tag;
+    const saved = Tags.add(req.body.tag);
 
-    const saved = Tags.save(tag);
-
-    console.log(`${tag} is ${saved ? 'saved' : 'not saved'}`);
+    console.log(`${req.body.tag} is ${saved ? 'saved' : 'not saved'}`);
 
     res.redirect('/tags');
   },
   search: (req, res) => {
-    const tag = req.body.tag;
-    console.log('search tag:', tag);
+    console.log('search tag:', req.body.tag);
 
-    const foundTags = Tags.search(tag);
+    const foundTags = Tags.search(req.body.tag);
 
     if (foundTags.length) {
       res.render(_path('list'), {
@@ -72,11 +71,9 @@ module.exports.post = {
     res.redirect('/tags');
   },
   delete: (req, res) => {
-    const tag = req.body.tag;
+    const deleted = Tags.delete(req.body.tag);
 
-    const deleted = Tags.delete(tag);
-
-    console.log(`${tag} is ${deleted ? 'deleted' : 'not deleted'}`);
+    console.log(`${req.body.tag} is ${deleted ? 'deleted' : 'not deleted'}`);
 
     res.redirect('/tags');
   }

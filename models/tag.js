@@ -1,15 +1,20 @@
-const tags = ['qwe', 'asd', 'zxc', 'qwer', 'QWE', 'QWER'];
+const tags = ['qwe', 'asd', 'zxc', 'qwer', 'QWE', 'QWER', 'qwer rty'];
 
 class Tag {
-  static save(name) {
-    const found = tags.find(tag => tag === name);
+  static add(tagsList) {
+    const list = tagsList.split(',').map(tag => tag.trim());
 
-    if (found) {
-      return false;
-    } else {
-      tags.push(name);
-      return true;
-    }
+    let added = false;
+    list.forEach(tag => {
+      const found = tags.find(t => t === tag);
+
+      if (!found) {
+        tags.push(tag);
+        added = true;
+      }
+    });
+
+    return added;
   }
 
   static list() {
@@ -69,6 +74,16 @@ class Tag {
     }
 
     return false;
+  }
+
+  static getExistingTags(tagsList) {
+    if (tagsList === '') {
+      return [];
+    }
+
+    const list = tagsList.split(',').map(tag => tag.trim());
+
+    console.log(list);
   }
 }
 
