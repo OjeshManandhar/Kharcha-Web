@@ -10,11 +10,7 @@
     <main class="main">
       <div class="main__container">
         <div class="list">
-          <div class="title">
-            <a href="/records" class="title__back"><</a>
-
-            <h1 class="title__heading"><%= title %></h1>
-          </div>
+          <%- include('./../includes/title.ejs', {backLink: '/records'}); %>
 
           <div class="list__window">
             <div class="list__block">

@@ -11,11 +11,7 @@
     <main class="main">
       <div class="main__container">
         <div class="form">
-          <div class="title">
-            <a href="/records" class="title__back"><</a>
-
-            <h1 class="title__heading"><%= title %></h1>
-          </div>
+          <%- include('./../includes/title.ejs', {backLink: '/records'}); %>
 
           <ul class="form__list">
             <li class="form__item">
