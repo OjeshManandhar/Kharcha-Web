@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const errorController = require('./controllers/error');
 
 // routes
-const homeRouter = require('./routes/home');
+const mainRouter = require('./routes/main');
 const tagsRouter = require('./routes/tags');
 const recordsRouter = require('./routes/records');
 
@@ -26,7 +26,7 @@ app.use(express.static(path('public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routers
-app.use('/', homeRouter);
+app.use('/', mainRouter);
 app.use('/tags', tagsRouter);
 app.use('/records', recordsRouter);
 
