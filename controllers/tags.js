@@ -44,14 +44,12 @@ module.exports.get = {
 module.exports.post = {
   add: (req, res) => {
     const saved = Tag.add(req.body.tag);
+    const message = saved ? 'Tag added' : 'Tag already exists';
+    const backLink = saved ? '/tags' : '/tags/add';
 
-    console.log(`${req.body.tag} is ${saved ? 'saved' : 'not saved'}`);
-
-    res.redirect('/tags');
+    res.redirect(`/message?message=${message}&backLink=${backLink}`);
   },
   search: (req, res) => {
-    console.log('search tag:', req.body.tag);
-
     const foundTags = Tag.search(req.body.tag);
 
     if (foundTags.length) {
@@ -61,24 +59,28 @@ module.exports.post = {
         tags: foundTags
       });
     } else {
-      res.redirect('/tags');
+      res.redirect('/message?message=No tags found&backLink=/tags/search');
     }
   },
   edit: (req, res) => {
-    const oldTag = req.body['old-tag'];
-    const newTag = req.body['new-tag'];
+    const edited = Tag.edit(req.body['old-tag'], req.body['new-tag']);
 
-    const edited = Tag.edit(oldTag, newTag);
+    const message =
+      edited == null
+        ? 'New tag already exists'
+        : edited
+        ? 'Tag edited'
+        : 'Old tag not found';
 
-    console.log('edit tag:', oldTag, newTag, edited);
+    const backLink = edited ? '/tags' : '/tags/edit';
 
-    res.redirect('/tags');
+    res.redirect(`/message?message=${message}&backLink=${backLink}`);
   },
   delete: (req, res) => {
     const deleted = Tag.delete(req.body.tag);
+    const message = deleted ? 'Tag deleted' : "Tag doesn't exists";
+    const backLink = deleted ? '/tags' : '/tags/delete';
 
-    console.log(`${req.body.tag} is ${deleted ? 'deleted' : 'not deleted'}`);
-
-    res.redirect('/tags');
+    res.redirect(`/message?message=${message}&backLink=${backLink}`);
   }
 };
