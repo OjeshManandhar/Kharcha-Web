@@ -2,12 +2,25 @@
 <html lang="en">
   <head>
     <%- include('./includes/head.ejs'); %>
+
+    <link rel="stylesheet" href="/css/message.css" />
   </head>
 
   <body>
     <main class="main">
-      <h1><%= message %></h1>
-      <a href="<%= backLink %>">Back</a>
+      <div class="main__container">
+        <div class="message">
+          <h1 class="message__message"><%= message %></h1>
+
+          <div
+            class="button__button-container button__button-container--no-border"
+          >
+            <a href="<%= backLink %>" class="button__button-link">
+              <div class="button__button button__button--small">Back</div>
+            </a>
+          </div>
+        </div>
+      </div>
     </main>
   </body>
 </html>
