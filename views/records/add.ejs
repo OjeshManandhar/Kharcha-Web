@@ -18,24 +18,11 @@
           <%- include('./../includes/title.ejs', { backLink: '/records' }); %>
 
           <ul class="form__list">
-            <li class="form__item">
-              <label for="id" class="form__label">
-                <span>ID</span>
-              </label>
-              <input
-                type="number"
-                class="form__input"
-                name="id"
-                value="1"
-                step="1"
-                readonly
-              />
-            </li>
-
             <%- include('./../includes/recordForm.ejs', { newRecord: true }) %>
           </ul>
-          
-          <%- include('./../includes/buttonRow.ejs', { cancelLink: '/records', disabled: false }); %>
+
+          <%- include('./../includes/buttonRow.ejs', { cancelLink: '/records',
+          disabled: false }); %>
         </form>
       </div>
     </main>

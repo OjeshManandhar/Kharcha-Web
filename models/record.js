@@ -2,39 +2,41 @@ const records = [];
 
 class Record {
   constructor(id, date, amount, type, tags, description) {
-    //  create new record
+    /**
+     * Creating new instance of arecord
+     * send id = null for adding a record
+     * send value of id for editing
+     */
     this.id = id;
     this.date = date;
     this.amount = amount;
     this.type = type;
     this.tags = tags;
     this.description = description;
-
-    records.push(this);
   }
 
-  edit(id, date, amount, type, tags, description) {
-    const newRecords = records.forEach(record => {
-      if (record.id === id) {
-        return {
-          id,
-          date,
-          amount,
-          type,
-          tags,
-          description
-        };
+  save() {
+    /**
+     * Return value
+     * true => sucessfully added or edited
+     * false => failed
+     */
+    if (this.id) {
+      // existing record => editing
+      const index = records.findIndex(r => r.id === this.id);
+
+      if (index !== -1) {
+        records[index] = this;
+        return true;
       }
+    } else {
+      // new record
+      this.id = records.length + 1;
+      records.unshift(this);
+      return true;
+    }
 
-      return record;
-    });
-
-    records.splice(0, records.length);
-    records.push(...newRecords);
-  }
-
-  static getNewId() {
-    return records.length + 1;
+    return false;
   }
 
   static list() {
@@ -48,9 +50,18 @@ class Record {
   }
 
   static delete(id) {
-    const newRecords = records.filter(record => record.id !== id);
+    /**
+     * Return value
+     * true => sucessfully deleted
+     * false => failed
+     */
+    const index = records.findIndex(r => r.id === id);
 
-    records.splice(0, records.length);
-    records.push(...newRecords);
+    if (index === -1) {
+      return false;
+    }
+
+    records.splice(index, 1);
+    return true;
   }
 }
