@@ -8,7 +8,7 @@ const messageStrings = {
 
 const idInput = document.querySelector('.form__item input[name="id"]');
 const record = document.querySelector('.record');
-const message = document.querySelector('.message');
+const message = document.querySelector('.block__message');
 const submit = document.querySelector('.form button[type="submit"]');
 
 function showRecord() {

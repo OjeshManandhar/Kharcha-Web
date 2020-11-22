@@ -194,7 +194,7 @@ body * {
   position: relative;
 }
 
-.message {
+.block__message {
   position: absolute;
   top: 0;
   left: 0;

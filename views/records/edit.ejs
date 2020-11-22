@@ -42,15 +42,16 @@
               autocomplete="off"
             >
               <ul class="form__list">
-                <%- include('./../includes/recordForm.ejs', { newRecord: false });
-                %>
+                <%- include('./../includes/recordForm.ejs', { newRecord: false
+                }); %>
               </ul>
             </form>
 
-            <div class="message">Enter ID</div>
+            <div class="block__message">Enter ID</div>
           </div>
-          
-          <%- include('./../includes/buttonRow.ejs', { cancelLink: '/records', disabled: false }); %>
+
+          <%- include('./../includes/buttonRow.ejs', { cancelLink: '/records',
+          disabled: false }); %>
         </div>
       </div>
     </main>
