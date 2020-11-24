@@ -2,6 +2,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+// env
+require('dotenv').config();
+
 // controllers
 const errorController = require('./controllers/error');
 
