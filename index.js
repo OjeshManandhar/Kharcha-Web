@@ -14,6 +14,7 @@ const tagsRouter = require('./routes/tags');
 const recordsRouter = require('./routes/records');
 
 // utils
+const db = require('./utils/database');
 const { path } = require('./utils/path');
 
 const app = express();
