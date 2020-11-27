@@ -2,6 +2,12 @@
 const { sequelize, DataTypes } = require('./../database');
 
 const Tag = sequelize.define('tag', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
+  },
   tag: {
     type: DataTypes.STRING,
     allowNull: false

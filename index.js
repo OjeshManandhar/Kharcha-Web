@@ -15,6 +15,7 @@ const recordsRouter = require('./routes/records');
 
 // database
 const { sequelize } = require('./database');
+const setAssociations = require('./database/associations');
 
 // utils
 const { path } = require('./utils/path');
@@ -39,8 +40,11 @@ app.use('/records', recordsRouter);
 // 404
 app.use(errorController.get404);
 
+setAssociations();
+
 sequelize
-  .sync()
+  .sync({ force: true })
+  // .sync()
   .then(() => {
     app.listen(3000, () => console.log('Server started at port 3000'));
   })
