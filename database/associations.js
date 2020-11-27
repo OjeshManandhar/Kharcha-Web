@@ -2,6 +2,7 @@
 const Tag = require('./../models/tag');
 const User = require('./../models/user');
 const Record = require('./../models/record');
+const RecordTag = require('./../models/recordTag');
 
 module.exports = () => {
   /**
@@ -31,4 +32,6 @@ module.exports = () => {
    * Record and Tag => many-to-many through Record_Tag
    * one Record can have many Tag and one Tag can belong to many Record
    */
+  Record.belongsToMany(Tag, { through: RecordTag });
+  Tag.belongsToMany(Record, { through: RecordTag });
 };
