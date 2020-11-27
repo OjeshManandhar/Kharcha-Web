@@ -1,12 +1,11 @@
-// utils
-const { sequelize, DataTypes } = require('./../utils/database');
+// database
+const { sequelize, DataTypes } = require('./../database');
 
 const Tag = sequelize.define('tag', {
-  user_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true
-  },
-  tag_list: DataTypes.STRING
+  tag: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
 });
 
 module.exports = Tag;
