@@ -13,8 +13,10 @@ const mainRouter = require('./routes/main');
 const tagsRouter = require('./routes/tags');
 const recordsRouter = require('./routes/records');
 
+// database
+const { sequelize } = require('./database');
+
 // utils
-const db = require('./utils/database');
 const { path } = require('./utils/path');
 
 const app = express();
@@ -37,4 +39,9 @@ app.use('/records', recordsRouter);
 // 404
 app.use(errorController.get404);
 
-app.listen(3000, () => console.log('Server started at port 3000'));
+sequelize
+  .sync()
+  .then(() => {
+    app.listen(3000, () => console.log('Server started at port 3000'));
+  })
+  .catch(err => console.log('Could not sync DB'));
