@@ -1,67 +1,97 @@
-const records = [];
+// database
+const { sequelize, DataTypes } = require('./../database');
 
-class Record {
-  constructor(id, date, amount, type, tags, description) {
-    /**
-     * Creating new instance of arecord
-     * send id = null for adding a record
-     * send value of id for editing
-     */
-    this.id = id;
-    this.date = date;
-    this.amount = amount;
-    this.type = type;
-    this.tags = tags;
-    this.description = description;
+const Record = sequelize.define('record', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  date: {
+    type: DataTypes.DATEONLY,
+    allowNull: false
+  },
+  amount: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false
+  },
+  type: {
+    type: DataTypes.ENUM('Debit', 'Credit'),
+    allowNull: false
+  },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true
   }
+});
 
-  save() {
-    /**
-     * Return value
-     * true => sucessfully added or edited
-     * false => failed
-     */
-    if (this.id) {
-      // existing record => editing
-      const index = records.findIndex(r => r.id === this.id);
+module.exports = Record;
 
-      if (index !== -1) {
-        records[index] = this;
-        return true;
-      }
-    } else {
-      // new record
-      this.id = records.length + 1;
-      records.unshift(this);
-      return true;
-    }
+// const records = [];
 
-    return false;
-  }
+// class Record {
+//   constructor(id, date, amount, type, tags, description) {
+//     /**
+//      * Creating new instance of arecord
+//      * send id = null for adding a record
+//      * send value of id for editing
+//      */
+//     this.id = id;
+//     this.date = date;
+//     this.amount = amount;
+//     this.type = type;
+//     this.tags = tags;
+//     this.description = description;
+//   }
 
-  static list() {
-    return records;
-  }
+//   save() {
+//     /**
+//      * Return value
+//      * true => sucessfully added or edited
+//      * false => failed
+//      */
+//     if (this.id) {
+//       // existing record => editing
+//       const index = records.findIndex(r => r.id === this.id);
 
-  static filter(criteria) {
-    console.log('filter according to:', criteria);
+//       if (index !== -1) {
+//         records[index] = this;
+//         return true;
+//       }
+//     } else {
+//       // new record
+//       this.id = records.length + 1;
+//       records.unshift(this);
+//       return true;
+//     }
 
-    return records;
-  }
+//     return false;
+//   }
 
-  static delete(id) {
-    /**
-     * Return value
-     * true => sucessfully deleted
-     * false => failed
-     */
-    const index = records.findIndex(r => r.id === id);
+//   static list() {
+//     return records;
+//   }
 
-    if (index === -1) {
-      return false;
-    }
+//   static filter(criteria) {
+//     console.log('filter according to:', criteria);
 
-    records.splice(index, 1);
-    return true;
-  }
-}
+//     return records;
+//   }
+
+//   static delete(id) {
+//     /**
+//      * Return value
+//      * true => sucessfully deleted
+//      * false => failed
+//      */
+//     const index = records.findIndex(r => r.id === id);
+
+//     if (index === -1) {
+//       return false;
+//     }
+
+//     records.splice(index, 1);
+//     return true;
+//   }
+// }
