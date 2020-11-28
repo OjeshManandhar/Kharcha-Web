@@ -20,26 +20,6 @@ module.exports = Tag;
 // const tags = ['qwe', 'asd', 'zxc', 'qwer', 'QWE', 'QWER', 'qwer rty'];
 
 // class Tag {
-//   static add(tagsList) {
-//     const list = tagsList.split(',').map(tag => tag.trim());
-
-//     let added = false;
-//     list.forEach(tag => {
-//       const found = tags.find(t => t === tag);
-
-//       if (!found) {
-//         tags.unshift(tag);
-//         added = true;
-//       }
-//     });
-
-//     return added;
-//   }
-
-//   static list() {
-//     return tags;
-//   }
-
 //   static edit(oldTag, newTag) {
 //     /**
 //      * Return values denote following

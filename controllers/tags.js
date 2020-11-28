@@ -17,17 +17,16 @@ module.exports.get = {
     res.render(_path('add'), { title: 'Add Tag' });
   },
   list: (req, res) => {
-    // console.log(
-    //   Tag.getExistingTags('qw er, asdf   , qwe  , QWE, asd, qwer rty, 123'),
-    //   Tag.getExistingTags(''),
-    //   Tag.getExistingTags('123')
-    // );
-
-    res.render(_path('list'), {
-      title: 'List Tag',
-      backLink: '/tags',
-      tags: Tag.list()
-    });
+    req.user
+      .getTags()
+      .then(tags => {
+        res.render(_path('list'), {
+          title: 'List Tag',
+          backLink: '/tags',
+          tags: tags.map(tag => tag.tag).reverse()
+        });
+      })
+      .catch(err => console.log('uesr.getTags err:', err));
   },
   search: (req, res) => {
     res.render(_path('search'), { title: 'Search Tag' });
