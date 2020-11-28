@@ -8,12 +8,12 @@ const User = sequelize.define('user', {
     primaryKey: true,
     autoIncrement: true
   },
-  unserName: {
+  userName: {
     type: DataTypes.STRING(30),
     allowNull: false,
     unique: true
   },
-  passowrd: {
+  password: {
     type: DataTypes.STRING(50),
     allowNull: false
   }

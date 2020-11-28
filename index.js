@@ -17,6 +17,9 @@ const recordsRouter = require('./routes/records');
 const { sequelize } = require('./database');
 const setAssociations = require('./database/associations');
 
+// model
+const { User } = require('./models');
+
 // utils
 const { path } = require('./utils/path');
 
@@ -32,6 +35,17 @@ app.use(express.static(path('public')));
 // request parser
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Add Test user to request
+app.use((req, res, next) => {
+  User.findByPk(1)
+    .then(user => {
+      req.user = user;
+
+      next();
+    })
+    .catch(err => console.log('User not found:', err));
+});
+
 // Routers
 app.use('/', mainRouter);
 app.use('/tags', tagsRouter);
@@ -45,6 +59,16 @@ setAssociations();
 sequelize
   // .sync({ force: true })
   .sync()
+  .then(() => {
+    return User.findByPk(1);
+  })
+  .then(user => {
+    if (!user) {
+      return User.create({ userName: 'Test', password: 'test password' });
+    }
+
+    return Promise.resolve(user);
+  })
   .then(() => {
     const port = process.env.PORT || 4000;
     app.listen(port, () => console.log('Server started at port:', port));
