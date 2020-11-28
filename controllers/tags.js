@@ -102,18 +102,59 @@ module.exports.post = {
     }
   },
   edit: (req, res) => {
-    const edited = Tag.edit(req.body['old-tag'], req.body['new-tag']);
+    const oldTag = req.body['old-tag'];
+    const newTag = req.body['new-tag'];
 
-    const message =
-      edited == null
-        ? 'New tag already exists'
-        : edited
-        ? 'Tag edited'
-        : 'Old tag not found';
+    if (oldTag === newTag) {
+      res.redirect(
+        '/message?message=Old tag and New tag are same&backLink=/tags/edit'
+      );
 
-    const backLink = edited ? '/tags' : '/tags/edit';
+      return;
+    }
 
-    res.redirect(`/message?message=${message}&backLink=${backLink}`);
+    // check for new Tag
+    req.user
+      .getTags({
+        where: {
+          tag: newTag
+        }
+      })
+      .then(tags => {
+        if (tags.length !== 0) {
+          // New tag exist
+          res.redirect(
+            '/message?message=New tag already exists&backLink=/tags/edit'
+          );
+        } else {
+          /**
+           * New tag doesn't exist
+           * Search for oldTag
+           */
+          return req.user.getTags({
+            where: {
+              tag: oldTag
+            }
+          });
+        }
+      })
+      .then(tags => {
+        if (tags.length === 0) {
+          // Old tag exist
+          res.redirect(
+            '/message?message=Old tag not found&backLink=/tags/edit'
+          );
+        } else {
+          const tag = tags[0];
+          tag.tag = newTag;
+
+          return tag.save();
+        }
+      })
+      .then(() => {
+        res.redirect('/message?message=Tag Edited&backLink=/tags');
+      })
+      .catch(err => console.log('uesr.getTags err:', err));
   },
   delete: (req, res) => {
     const deleted = Tag.delete(req.body.tag);

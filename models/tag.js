@@ -20,30 +20,6 @@ module.exports = Tag;
 // const tags = ['qwe', 'asd', 'zxc', 'qwer', 'QWE', 'QWER', 'qwer rty'];
 
 // class Tag {
-//   static edit(oldTag, newTag) {
-//     /**
-//      * Return values denote following
-//      * null => newTag already exists
-//      * true => oldTag is replaced by newTag
-//      * false => oldTag not found
-//      */
-
-//     // Check if newTag already exists
-//     const found = tags.find(tag => tag === newTag);
-//     if (found) {
-//       return null;
-//     }
-
-//     const oldTagIndex = tags.findIndex(tag => tag === oldTag);
-
-//     if (oldTagIndex !== -1) {
-//       tags[oldTagIndex] = newTag;
-//       return true;
-//     } else {
-//       return false;
-//     }
-//   }
-
 //   static search(name) {
 //     const foundTags = [];
 
