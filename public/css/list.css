@@ -74,6 +74,10 @@
   border: 1px solid #00695c;
 }
 
+.list__block--one-row {
+  display: block;
+}
+
 .list__block--width-100 {
   width: 100%;
 }

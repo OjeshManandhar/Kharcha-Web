@@ -26,7 +26,7 @@ module.exports.get = {
         res.render(_path('list'), {
           title: 'List Tag',
           backLink: '/tags',
-          tags: tags.map(tag => tag.tag).reverse()
+          tags: tags.map(t => t.tag).reverse()
         });
       })
       .catch(err => console.log('uesr.getTags err:', err));
@@ -94,22 +94,28 @@ module.exports.post = {
       .catch(err => console.log('uesr.getTags err:', err));
   },
   search: (req, res) => {
-    console.log('to search:', req.body.tag);
+    const tagToSearch = req.body.tag;
 
     req.user
       .getTags({
         where: {
           tag: {
-            [Op.like]: `%${req.body.tag}%`
+            [Op.like]: `%${tagToSearch}%`
           }
         }
       })
       .then(tags => {
         if (tags.length > 0) {
           res.render(_path('list'), {
-            title: 'List Tag',
+            title: 'Search Tag',
             backLink: '/tags',
-            tags: tags.map(tag => tag.tag).reverse()
+            tags: tags
+              .map(t => {
+                const regex = new RegExp(`(${tagToSearch})`, 'ig');
+
+                return t.tag.replace(regex, '<strong>$1</strong>');
+              })
+              .reverse()
           });
         } else {
           res.redirect('/message?message=No tags found&backLink=/tags/search');
