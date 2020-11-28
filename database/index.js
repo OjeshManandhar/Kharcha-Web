@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -20,4 +20,4 @@ const sequelize = new Sequelize(
 //   }
 // })();
 
-module.exports = { sequelize, DataTypes: Sequelize.DataTypes };
+module.exports = { sequelize, DataTypes };

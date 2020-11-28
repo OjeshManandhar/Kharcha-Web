@@ -17,21 +17,7 @@ const Tag = sequelize.define('tag', {
 
 module.exports = Tag;
 
-// const tags = ['qwe', 'asd', 'zxc', 'qwer', 'QWE', 'QWER', 'qwer rty'];
-
 // class Tag {
-//   static search(name) {
-//     const foundTags = [];
-
-//     tags.forEach(tag => {
-//       if (tag.toLowerCase().indexOf(name.toLowerCase()) !== -1) {
-//         foundTags.push(tag);
-//       }
-//     });
-
-//     return foundTags;
-//   }
-
 //   static delete(tagsList) {
 //     let deleted = false;
 //     const list = tagsList.split(',').map(tag => tag.trim());

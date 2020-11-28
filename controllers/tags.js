@@ -1,3 +1,6 @@
+// packages
+const { Op } = require('sequelize');
+
 // models
 const Tag = require('./../models/tag');
 
@@ -55,7 +58,9 @@ module.exports.post = {
         list.forEach(tag => {
           if (tag.length < 3) return;
 
-          const found = tags.find(t => t.tag === tag);
+          const found = tags.find(
+            t => t.tag.toLowerCase() === tag.toLowerCase()
+          );
 
           if (!found)
             tagsToAdd.push({
@@ -89,23 +94,34 @@ module.exports.post = {
       .catch(err => console.log('uesr.getTags err:', err));
   },
   search: (req, res) => {
-    const foundTags = Tag.search(req.body.tag);
+    console.log('to search:', req.body.tag);
 
-    if (foundTags.length) {
-      res.render(_path('list'), {
-        title: 'List Tag',
-        backLink: '/tags/search',
-        tags: foundTags
-      });
-    } else {
-      res.redirect('/message?message=No tags found&backLink=/tags/search');
-    }
+    req.user
+      .getTags({
+        where: {
+          tag: {
+            [Op.like]: `%${req.body.tag}%`
+          }
+        }
+      })
+      .then(tags => {
+        if (tags.length > 0) {
+          res.render(_path('list'), {
+            title: 'List Tag',
+            backLink: '/tags',
+            tags: tags.map(tag => tag.tag).reverse()
+          });
+        } else {
+          res.redirect('/message?message=No tags found&backLink=/tags/search');
+        }
+      })
+      .catch(err => console.log('uesr.getTags err:', err));
   },
   edit: (req, res) => {
     const oldTag = req.body['old-tag'];
     const newTag = req.body['new-tag'];
 
-    if (oldTag === newTag) {
+    if (oldTag.toLoqweCase() === newTag.toLoqweCase()) {
       res.redirect(
         '/message?message=Old tag and New tag are same&backLink=/tags/edit'
       );
