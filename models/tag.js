@@ -10,7 +10,8 @@ const Tag = sequelize.define('tag', {
   },
   tag: {
     type: DataTypes.STRING(20),
-    allowNull: false
+    allowNull: false,
+    unique: 'userTag'
   }
 });
 

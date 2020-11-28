@@ -8,7 +8,10 @@ module.exports = () => {
    * i.e. User has many Tag or many Tag can belong to one User
    */
   User.hasMany(Tag, {
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    foreignKey: {
+      unique: 'userTag'
+    }
   });
   Tag.belongsTo(User);
 
