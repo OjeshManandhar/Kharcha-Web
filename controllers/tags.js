@@ -50,7 +50,12 @@ module.exports.post = {
       .then(tags => {
         const tagsToAdd = [];
 
-        list.map(tag => {
+        const allTagsInvalid = list.every(tag => tag.length < 3);
+        if (allTagsInvalid) return Promise.resolve(null);
+
+        list.forEach(tag => {
+          if (tag.length < 3) return;
+
           const found = tags.find(t => t.tag === tag);
 
           if (!found)
@@ -60,12 +65,12 @@ module.exports.post = {
             });
         });
 
-        console.log('tagsToAdd:', tagsToAdd, tagsToAdd.length);
-
         return Promise.resolve(tagsToAdd);
       })
       .then(tagsToAdd => {
-        if (tagsToAdd.length === 0) {
+        if (!tagsToAdd) {
+          res.redirect('/message?message=No valid tag(s)&backLink=/tags/add');
+        } else if (tagsToAdd.length === 0) {
           res.redirect(
             '/message?message=Tag(s) already exist&backLink=/tags/add'
           );
