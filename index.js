@@ -46,6 +46,7 @@ sequelize
   .sync({ force: true })
   // .sync()
   .then(() => {
-    app.listen(3000, () => console.log('Server started at port 3000'));
+    const port = process.env.PORT || 4000;
+    app.listen(port, () => console.log('Server started at port:', port));
   })
-  .catch(err => console.log('Could not sync DB'));
+  .catch(err => console.log('Could not sync DB:', err));

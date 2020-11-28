@@ -8,6 +8,16 @@ const Record = sequelize.define('record', {
     primaryKey: true,
     autoIncrement: true
   },
+  /**
+   * unique field for using it in recordTag
+   * value = id + userId
+   */
+  _id: {
+    type: DataTypes.STRING(20),
+    unique: true,
+    allowNull: false,
+    defaultValue: 'null'
+  },
   date: {
     type: DataTypes.DATEONLY,
     allowNull: false
