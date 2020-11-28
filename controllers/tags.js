@@ -43,11 +43,46 @@ module.exports.get = {
 // POST
 module.exports.post = {
   add: (req, res) => {
-    const saved = Tag.add(req.body.tag);
-    const message = saved ? 'Tag added' : 'Tag already exists';
-    const backLink = saved ? '/tags' : '/tags/add';
+    const list = req.body.tag.split(',').map(tag => tag.trim());
 
-    res.redirect(`/message?message=${message}&backLink=${backLink}`);
+    req.user
+      .getTags()
+      .then(tags => {
+        const tagsToAdd = [];
+
+        list.map(tag => {
+          const found = tags.find(t => t.tag === tag);
+
+          if (!found)
+            tagsToAdd.push({
+              tag: tag,
+              userId: req.user.id
+            });
+        });
+
+        console.log('tagsToAdd:', tagsToAdd, tagsToAdd.length);
+
+        return Promise.resolve(tagsToAdd);
+      })
+      .then(tagsToAdd => {
+        if (tagsToAdd.length === 0) {
+          res.redirect(
+            '/message?message=Tag(s) already exist&backLink=/tags/add'
+          );
+        } else {
+          Tag.bulkCreate(tagsToAdd)
+            .then(() => {
+              res.redirect('/message?message=Tag(s) added&backLink=/tags');
+            })
+            .catch(err => {
+              console.log('create tag err:', err);
+              res.redirect(
+                "/message?message=Couldn't add tags&backLink=/tags/add"
+              );
+            });
+        }
+      })
+      .catch(err => console.log('uesr.getTags err:', err));
   },
   search: (req, res) => {
     const foundTags = Tag.search(req.body.tag);
