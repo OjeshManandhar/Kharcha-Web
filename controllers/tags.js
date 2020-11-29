@@ -1,5 +1,5 @@
 // packages
-const { Op } = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 
 // models
 const Tag = require('./../models/tag');
@@ -127,7 +127,7 @@ module.exports.post = {
     const oldTag = req.body['old-tag'];
     const newTag = req.body['new-tag'];
 
-    if (oldTag.toLoqweCase() === newTag.toLoqweCase()) {
+    if (oldTag === newTag) {
       res.redirect(
         '/message?message=Old tag and New tag are same&backLink=/tags/edit'
       );
@@ -138,47 +138,54 @@ module.exports.post = {
     // check for new Tag
     req.user
       .getTags({
-        where: {
-          tag: newTag
-        }
+        // Case sensitive search using LIKE
+        where: Sequelize.where(Sequelize.col('tag'), 'LIKE BINARY', newTag)
       })
       .then(tags => {
-        if (tags.length !== 0) {
+        if (tags && tags.length !== 0) {
           // New tag exist
           res.redirect(
             '/message?message=New tag already exists&backLink=/tags/edit'
           );
-        } else {
-          /**
-           * New tag doesn't exist
-           * Search for oldTag
-           */
-          return req.user.getTags({
-            where: {
-              tag: oldTag
-            }
-          });
-        }
-      })
-      .then(tags => {
-        if (tags.length === 0) {
-          // Old tag exist
-          res.redirect(
-            '/message?message=Old tag not found&backLink=/tags/edit'
-          );
-        } else {
-          const tag = tags[0];
-          tag.tag = newTag;
 
-          return tag.save();
+          return;
         }
+
+        /**
+         * New tag doesn't exist
+         * Search for oldTag
+         */
+        req.user
+          .getTags({
+            // Case sensitive search using LIKE
+            where: Sequelize.where(Sequelize.col('tag'), 'LIKE BINARY', oldTag)
+          })
+          .then(tags => {
+            if (tags && tags.length === 0) {
+              // Old tag doesn't exist
+              res.redirect(
+                '/message?message=Old tag not found&backLink=/tags/edit'
+              );
+
+              return undefined;
+            }
+
+            // Edit tag and save in DB
+            const tag = tags[0];
+            tag.tag = newTag;
+
+            return tag.save();
+          })
+          .then(tag => {
+            tag && res.redirect('/message?message=Tag Edited&backLink=/tags');
+          })
+          .catch(err => console.log('uesr.getTags new err:', err));
       })
-      .then(() => {
-        res.redirect('/message?message=Tag Edited&backLink=/tags');
-      })
-      .catch(err => console.log('uesr.getTags err:', err));
+      .catch(err => console.log('uesr.getTags new err:', err));
   },
   delete: (req, res) => {
+    const list = req.body.tag.split(',').map(tag => tag.trim());
+
     const deleted = Tag.delete(req.body.tag);
     const message = deleted ? 'Tag deleted' : "Tag doesn't exists";
     const backLink = deleted ? '/tags' : '/tags/delete';
