@@ -82,7 +82,7 @@ function search(id, cb) {
   const record = {
     id: id,
     date: '2020-09-21',
-    amount: 123,
+    amount: (+id) ** 3,
     type: 'Credit',
     tags: ['qwe', 'asd'],
     description: '123havdladksaj dblsakdblsak dbsakdbl sakdblsadh'
