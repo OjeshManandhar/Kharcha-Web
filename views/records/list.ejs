@@ -10,78 +10,46 @@
     <main class="main">
       <div class="main__container">
         <div class="list">
-          <%- include('./../includes/title.ejs', { backLink: '/records' }); %>
+          <%# backLink will be provided from controller so don't include it in the following include  %>
+          <%- include('./../includes/title.ejs'); %>
 
           <div class="list__window">
-            <div class="list__block">
-              <div class="list__row">
-                <div class="list__label">Date</div>
-                <div class="list__value">2020-11-10</div>
+            <% for (record of records) { %>
+              <div class="list__block">
+                <div class="list__row">
+                  <div class="list__label">Date</div>
+                  <div class="list__value"><%= record.date %></div>
 
-                <div class="list__label list__label--no-grow">ID</div>
-                <div class="list__value list__value--no-grow">1</div>
-              </div>
-              <div class="list__row">
-                <div class="list__label">Amount</div>
-                <div class="list__value">Rs. 100</div>
+                  <div class="list__label list__label--no-grow">ID</div>
+                  <div class="list__value list__value--no-grow">
+                    <%= record.id %>
+                  </div>
+                </div>
+                <div class="list__row">
+                  <div class="list__label">Amount</div>
+                  <div class="list__value">Rs. <%= record.amount %></div>
 
-                <div class="list__label list__label--no-grow">Type</div>
-                <div class="list__value list__value--no-grow">Debit</div>
-              </div>
-              <div class="list__row">
-                <div class="list__label">Tags</div>
-                <div class="list__value">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Eaque, illo?
+                  <div class="list__label list__label--no-grow">Type</div>
+                  <div class="list__value list__value--no-grow">
+                    <%= record.type %>
+                  </div>
+                </div>
+                <div class="list__row">
+                  <div class="list__label">Tags</div>
+                  <div class="list__value">
+                    <%= record.tags.length > 0 ? record.tags.join(', ') : ' ' %>
+                  </div>
+                </div>
+                <div class="list__row">
+                  <div class="list__label">Description</div>
+                  <div class="list__value"><%= record.description %></div>
                 </div>
               </div>
-              <div class="list__row">
-                <div class="list__label">Description</div>
-                <div class="list__value">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Harum, aliquid eum explicabo ut aliquam animi officiis dicta
-                  blanditiis praesentium in temporibus! Quis, dolores
-                  reiciendis. Facilis.
-                </div>
-              </div>
-            </div>
-
-            <div class="list__block">
-              <div class="list__row">
-                <div class="list__label">Date</div>
-                <div class="list__value">2020-11-10</div>
-
-                <div class="list__label list__label--no-grow">ID</div>
-                <div class="list__value list__value--no-grow">1</div>
-              </div>
-              <div class="list__row">
-                <div class="list__label">Amount</div>
-                <div class="list__value">Rs. 100</div>
-
-                <div class="list__label list__label--no-grow">Type</div>
-                <div class="list__value list__value--no-grow">Debit</div>
-              </div>
-              <div class="list__row">
-                <div class="list__label">Tags</div>
-                <div class="list__value">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Eaque, illo?
-                </div>
-              </div>
-              <div class="list__row">
-                <div class="list__label">Description</div>
-                <div class="list__value">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Harum, aliquid eum explicabo ut aliquam animi officiis dicta
-                  blanditiis praesentium in temporibus! Quis, dolores
-                  reiciendis. Facilis.
-                </div>
-              </div>
-            </div>
+            <% } %>
           </div>
 
           <div class="button__button-container">
-            <a href="/records" class="button__button-link">
+            <a href="<%= backLink %>" class="button__button-link">
               <div class="button__button">Back</div>
             </a>
           </div>

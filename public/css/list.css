@@ -130,6 +130,7 @@
 .list__value {
   flex-grow: 1;
 
+  min-height: 36px;
   max-height: 85px;
 
   padding: 5px 10px;

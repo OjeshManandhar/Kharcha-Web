@@ -23,19 +23,27 @@ module.exports.get = {
     req.user
       .getRecords({ include: Tag })
       .then(records => {
-        records.forEach((record, index) => {
-          console.log('--------------------------');
-          console.log(index, ' record:', record.toJSON());
+        const parsedRecords = records
+          .map(r => {
+            const record = r.toJSON();
 
-          record.tags.forEach((tag, tagIndex) =>
-            console.log(index, tagIndex, tag.name)
-          );
-          console.log('--------------------------');
+            delete record.tags;
+            delete record.createdAt;
+            delete record.updatedAt;
+
+            record.tags = r.tags.map(t => t.name);
+
+            return record;
+          })
+          .reverse();
+
+        res.render(_path('list'), {
+          title: 'List Records',
+          backLink: '/records',
+          records: parsedRecords
         });
       })
       .catch(err => console.log('user.getRecords err:', err));
-
-    res.render(_path('list'), { title: 'List Records' });
   },
   filter: (req, res) => {
     res.render(_path('filter'), { title: 'Filter Records' });
