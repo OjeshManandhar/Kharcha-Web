@@ -52,15 +52,20 @@ module.exports.post = {
       .then(tags => {
         const tagsToAdd = [];
 
-        const allTagsInvalid = list.every(tag => tag.length < 3);
-        if (allTagsInvalid) return Promise.resolve(null);
+        const allTagsInvalid = list.every(
+          tag => tag.length < 3 || tag.length > 20
+        );
+        if (allTagsInvalid) return Promise.resolve(undefined);
 
         list.forEach(tag => {
-          if (tag.length < 3) return;
+          // Skip in valid tag
+          if (tag.length < 3 || tag.length > 20) return;
 
-          const found = tags.find(
-            t => t.tag.toLowerCase() === tag.toLowerCase()
-          );
+          const found =
+            // Find tags that already exist in DB
+            tags.find(t => t.tag.toLowerCase() === tag.toLowerCase()) ||
+            // Find tags that already exist in list of tags to add
+            tagsToAdd.find(t => t.tag.toLowerCase() === tag.toLowerCase());
 
           if (!found)
             tagsToAdd.push({
