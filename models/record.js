@@ -13,7 +13,7 @@ const Record = sequelize.define('record', {
    * value = id + userId
    */
   _id: {
-    type: DataTypes.STRING(20),
+    type: DataTypes.STRING(50),
     unique: true,
     allowNull: false,
     defaultValue: 'null'

@@ -194,7 +194,7 @@ module.exports.post = {
       where: {
         userId: req.user.id,
         name: {
-          [Op.in]: [list]
+          [Op.in]: list
         }
       }
     })
