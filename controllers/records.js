@@ -2,7 +2,7 @@
 const { Op } = require('sequelize');
 
 // model
-const { Record } = require('./../models');
+const { Tag, Record } = require('./../models');
 
 // utils
 const { path } = require('./../utils/path');
@@ -20,6 +20,21 @@ module.exports.get = {
     res.render(_path('add'), { title: 'Add Record' });
   },
   list: (req, res) => {
+    req.user
+      .getRecords({ include: Tag })
+      .then(records => {
+        records.forEach((record, index) => {
+          console.log('--------------------------');
+          console.log(index, ' record:', record.toJSON());
+
+          record.tags.forEach((tag, tagIndex) =>
+            console.log(index, tagIndex, tag.name)
+          );
+          console.log('--------------------------');
+        });
+      })
+      .catch(err => console.log('user.getRecords err:', err));
+
     res.render(_path('list'), { title: 'List Records' });
   },
   filter: (req, res) => {
