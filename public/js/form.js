@@ -27,7 +27,8 @@ function showMessage() {
 }
 
 function autoPopulate(record) {
-  console.dir(autoPopulateElem);
+  console.log('record:', record);
+
   const tagName = autoPopulateElem.tagName;
 
   if (tagName === 'DIV') {
@@ -53,6 +54,26 @@ function autoPopulate(record) {
 
     document.querySelector(
       '.auto-populate div[auto-populate-data="description"]'
+    ).innerText = record.description;
+  }
+
+  if (tagName === 'FORM') {
+    document.querySelector('.auto-populate input[name="date"]').value =
+      record.date;
+
+    document.querySelector('.auto-populate input[name="amount"]').value =
+      record.amount;
+
+    document.querySelector(
+      `.auto-populate input[name="type"][value="${record.type.toLowerCase()}"]`
+    ).checked = true;
+
+    document.querySelector(
+      '.auto-populate input[name="tags"]'
+    ).value = record.tags.join(', ');
+
+    document.querySelector(
+      '.auto-populate textarea[name="description"]'
     ).innerText = record.description;
   }
 }

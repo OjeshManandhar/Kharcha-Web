@@ -37,7 +37,7 @@
             <form
               id="edit-form"
               action="/records/edit"
-              class="form form--width-100 record visibility-hidden"
+              class="form form--width-100 record visibility-hidden auto-populate"
               method="POST"
               autocomplete="off"
             >
@@ -50,8 +50,20 @@
             <div class="block__message">Enter ID</div>
           </div>
 
-          <%- include('./../includes/buttonRow.ejs', { cancelLink: '/records',
-          disabled: true }); %>
+          <%# Cannot use buttonRow partial because the submit is outside form %>
+          <div class="button__button-container">
+            <a href="/records" class="button__button-link">
+              <div class="button__button button__button--small">Cancel</div>
+            </a>
+            <button
+              type="submit"
+              form="edit-form"
+              class="button__button button__button--small"
+              disabled
+            >
+              <%= title %>
+            </button>
+          </div>
         </div>
       </div>
     </main>
