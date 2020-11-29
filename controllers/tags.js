@@ -17,14 +17,14 @@ module.exports.get = {
     res.render(_path('index'), { title: 'Tag' });
   },
   add: (req, res) => {
-    res.render(_path('add'), { title: 'Add Tag' });
+    res.render(_path('add'), { title: 'Add Tags' });
   },
   list: (req, res) => {
     req.user
       .getTags()
       .then(tags => {
         res.render(_path('list'), {
-          title: 'List Tag',
+          title: 'List Tags',
           backLink: '/tags',
           tags: tags.map(t => t.name).reverse()
         });
@@ -32,7 +32,7 @@ module.exports.get = {
       .catch(err => console.log('user.getTags err:', err));
   },
   search: (req, res) => {
-    res.render(_path('search'), { title: 'Search Tag' });
+    res.render(_path('search'), { title: 'Search Tags' });
   },
   edit: (req, res) => {
     res.render(_path('edit'), { title: 'Edit Tag' });
@@ -115,7 +115,7 @@ module.exports.post = {
       .then(tags => {
         if (tags.length > 0) {
           res.render(_path('list'), {
-            title: 'Search Tag',
+            title: 'Search Tags',
             backLink: '/tags',
             tags: tags
               .map(t => {
