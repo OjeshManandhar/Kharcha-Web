@@ -11,6 +11,8 @@ const Record = sequelize.define('record', {
   /**
    * unique field for using it in recordTag
    * value = id + userId
+   * needs to be calculated manually after creating ...
+   * ... then updating the newly created record
    */
   _id: {
     type: DataTypes.STRING(50),
@@ -41,20 +43,6 @@ module.exports = Record;
 // const records = [];
 
 // class Record {
-//   constructor(id, date, amount, type, tags, description) {
-//     /**
-//      * Creating new instance of arecord
-//      * send id = null for adding a record
-//      * send value of id for editing
-//      */
-//     this.id = id;
-//     this.date = date;
-//     this.amount = amount;
-//     this.type = type;
-//     this.tags = tags;
-//     this.description = description;
-//   }
-
 //   save() {
 //     /**
 //      * Return value

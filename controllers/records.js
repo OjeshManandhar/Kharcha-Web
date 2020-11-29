@@ -1,3 +1,9 @@
+// packages
+const { Op } = require('sequelize');
+
+// model
+const { Record } = require('./../models');
+
 // utils
 const { path } = require('./../utils/path');
 
@@ -30,9 +36,78 @@ module.exports.get = {
 //POST
 module.exports.post = {
   add: (req, res) => {
-    console.log('add record:', req.body);
+    const { date, amount, type, tags, description } = req.body;
+    const list = [];
 
-    res.redirect('/records');
+    tags
+      .split(',')
+      // Remove whitespaces
+      .map(tag => tag.trim())
+      // Filter out invalid tags
+      .filter(t => !(t.length < 3 || t.length > 20))
+      // Remove duplicates
+      .forEach(t => {
+        if (!list.find(x => x.toLowerCase() === t.toLowerCase())) list.push(t);
+      });
+
+    let newRecord;
+
+    Record.create({
+      userId: req.user.id,
+      _id: "doesn't matter what value is given",
+      date,
+      amount,
+      type,
+      description
+    })
+      .then(record => {
+        // Making and adding _id
+        record._id = `${record.userId}+${record.id}`;
+
+        newRecord = record;
+
+        return record.save();
+      })
+      .then(() => {
+        // Get tags which are present in db
+        return req.user.getTags({
+          where: {
+            name: {
+              [Op.in]: list
+            }
+          }
+        });
+      })
+      .then(tags => {
+        // Add tags to record
+        return newRecord.addTags(tags);
+      })
+      .then(() => {
+        // console.log('Add tags sucess:', sucess);
+
+        res.redirect('/message?message=Record created&backLink=/records');
+      })
+      .catch(err => {
+        console.log("Couldn't create record:", err);
+
+        // Delete record if it exists use newRecord
+        if (newRecord) {
+          newRecord
+            .destroy()
+            .then(() =>
+              console.log("Couldn't create record completely. Deleted record")
+            )
+            .catch(err =>
+              console.log(
+                "Couldn't create record completely. Couldn't delete record completely too"
+              )
+            );
+        }
+
+        res.redirect(
+          "/message?message=Coundn't create Record&backLink=/records/add"
+        );
+      });
   },
   filter: (req, res) => {
     console.log('filter record:', req.body);
