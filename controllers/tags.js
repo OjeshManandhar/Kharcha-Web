@@ -29,7 +29,7 @@ module.exports.get = {
           tags: tags.map(t => t.tag).reverse()
         });
       })
-      .catch(err => console.log('uesr.getTags err:', err));
+      .catch(err => console.log('user.getTags err:', err));
   },
   search: (req, res) => {
     res.render(_path('search'), { title: 'Search Tag' });
@@ -64,7 +64,10 @@ module.exports.post = {
           const found =
             // Find tags that already exist in DB
             tags.find(t => t.tag.toLowerCase() === tag.toLowerCase()) ||
-            // Find tags that already exist in list of tags to add
+            /**
+             * Find tags that already exist in list of tags to add
+             * i.e. to remove multiple occurance of same tag
+             */
             tagsToAdd.find(t => t.tag.toLowerCase() === tag.toLowerCase());
 
           if (!found)
@@ -96,7 +99,7 @@ module.exports.post = {
             });
         }
       })
-      .catch(err => console.log('uesr.getTags err:', err));
+      .catch(err => console.log('user.getTags err:', err));
   },
   search: (req, res) => {
     const tagToSearch = req.body.tag;
@@ -126,18 +129,16 @@ module.exports.post = {
           res.redirect('/message?message=No tags found&backLink=/tags/search');
         }
       })
-      .catch(err => console.log('uesr.getTags err:', err));
+      .catch(err => console.log('user.getTags err:', err));
   },
   edit: (req, res) => {
     const oldTag = req.body['old-tag'];
     const newTag = req.body['new-tag'];
 
     if (oldTag === newTag) {
-      res.redirect(
+      return res.redirect(
         '/message?message=Old tag and New tag are same&backLink=/tags/edit'
       );
-
-      return;
     }
 
     // check for new Tag
@@ -149,11 +150,9 @@ module.exports.post = {
       .then(tags => {
         if (tags && tags.length !== 0) {
           // New tag exist
-          res.redirect(
+          return res.redirect(
             '/message?message=New tag already exists&backLink=/tags/edit'
           );
-
-          return;
         }
 
         /**
@@ -184,17 +183,32 @@ module.exports.post = {
           .then(tag => {
             tag && res.redirect('/message?message=Tag Edited&backLink=/tags');
           })
-          .catch(err => console.log('uesr.getTags new err:', err));
+          .catch(err => console.log('user.getTags new err:', err));
       })
-      .catch(err => console.log('uesr.getTags new err:', err));
+      .catch(err => console.log('user.getTags new err:', err));
   },
   delete: (req, res) => {
     const list = req.body.tag.split(',').map(tag => tag.trim());
 
-    const deleted = Tag.delete(req.body.tag);
-    const message = deleted ? 'Tag deleted' : "Tag doesn't exists";
-    const backLink = deleted ? '/tags' : '/tags/delete';
+    Tag.destroy({
+      where: {
+        userId: req.user.id,
+        tag: {
+          [Op.in]: [list]
+        }
+      }
+    })
+      .then(noOfDeletedTags => {
+        console.log('noOfDeletedTags:', noOfDeletedTags);
 
-    res.redirect(`/message?message=${message}&backLink=${backLink}`);
+        if (noOfDeletedTags === 0) {
+          return res.redirect(
+            "/message?message=Tag(s) doesn't exists&backLink=/tags/delete"
+          );
+        }
+
+        res.redirect('/message?message=Tag(s) deleted&backLink=/tags');
+      })
+      .catch(err => console.log('Tag.destroy err:', err));
   }
 };
