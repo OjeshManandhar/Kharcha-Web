@@ -39,37 +39,35 @@
 
           <div class="block">
             <div
-              class="list__block list__block--width-100 record visibility-hidden"
+              class="list__block list__block--width-100 record visibility-hidden auto-populate"
             >
               <div class="list__row">
                 <div class="list__label">Date</div>
-                <div class="list__value">2020-11-10</div>
+                <div class="list__value" auto-populate-data="date"></div>
 
                 <div class="list__label list__label--no-grow">ID</div>
-                <div class="list__value list__value--no-grow">1</div>
+                <div
+                  class="list__value list__value--no-grow"
+                  auto-populate-data="id"
+                ></div>
               </div>
               <div class="list__row">
                 <div class="list__label">Amount</div>
-                <div class="list__value">Rs. 100</div>
+                <div class="list__value" auto-populate-data="amount"></div>
 
                 <div class="list__label list__label--no-grow">Type</div>
-                <div class="list__value list__value--no-grow">Debit</div>
+                <div
+                  class="list__value list__value--no-grow"
+                  auto-populate-data="type"
+                ></div>
               </div>
               <div class="list__row">
                 <div class="list__label">Tags</div>
-                <div class="list__value">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Eaque, illo?
-                </div>
+                <div class="list__value" auto-populate-data="tags"></div>
               </div>
               <div class="list__row">
                 <div class="list__label">Description</div>
-                <div class="list__value">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Harum, aliquid eum explicabo ut aliquam animi officiis dicta
-                  blanditiis praesentium in temporibus! Quis, dolores
-                  reiciendis. Facilis.
-                </div>
+                <div class="list__value" auto-populate-data="description"></div>
               </div>
             </div>
 

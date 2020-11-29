@@ -10,6 +10,7 @@ const idInput = document.querySelector('.form__item input[name="id"]');
 const record = document.querySelector('.record');
 const message = document.querySelector('.block__message');
 const submit = document.querySelector('.form button[type="submit"]');
+const autoPopulateElem = document.querySelector('.auto-populate');
 
 function showRecord() {
   message.classList.add('display-hidden');
@@ -25,18 +26,53 @@ function showMessage() {
   submit.disabled = true;
 }
 
+function autoPopulate(record) {
+  console.dir(autoPopulateElem);
+  const tagName = autoPopulateElem.tagName;
+
+  if (tagName === 'DIV') {
+    document.querySelector(
+      '.auto-populate div[auto-populate-data="date"]'
+    ).innerText = record.date;
+
+    document.querySelector(
+      '.auto-populate div[auto-populate-data="id"]'
+    ).innerText = record.id;
+
+    document.querySelector(
+      '.auto-populate div[auto-populate-data="amount"]'
+    ).innerText = 'Rs. ' + record.amount;
+
+    document.querySelector(
+      '.auto-populate div[auto-populate-data="type"]'
+    ).innerText = record.type;
+
+    document.querySelector(
+      '.auto-populate div[auto-populate-data="tags"]'
+    ).innerText = record.tags.join(', ');
+
+    document.querySelector(
+      '.auto-populate div[auto-populate-data="description"]'
+    ).innerText = record.description;
+  }
+}
+
 function search(id, cb) {
   const record = {
     id: id,
     date: '2020-09-21',
     amount: 123,
-    type: 'debit',
+    type: 'Credit',
     tags: ['qwe', 'asd'],
-    description: '123'
+    description: '123havdladksaj dblsakdblsak dbsakdbl sakdblsadh'
   };
 
   timeout = setTimeout(() => {
-    cb(record);
+    if (id % 2 === 0) {
+      cb(record);
+    } else {
+      cb(null);
+    }
   }, 0.1 * 1000);
 }
 
@@ -57,6 +93,7 @@ idInput.addEventListener('input', e => {
         message.innerText = messageStrings.notFound;
       } else {
         showRecord();
+        autoPopulate(record);
       }
     });
   }
