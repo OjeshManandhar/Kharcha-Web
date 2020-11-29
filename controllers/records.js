@@ -92,7 +92,7 @@ module.exports.post = {
         return record.save();
       })
       .then(() => {
-        // Get tags which are present in db
+        // Filter tags which are present in db
         return req.user.getTags({
           where: {
             name: {
@@ -106,8 +106,7 @@ module.exports.post = {
         return newRecord.addTags(tags);
       })
       .then(() => {
-        // console.log('Add tags sucess:', sucess);
-
+        // Set tags sucess
         res.redirect('/message?message=Record created&backLink=/records');
       })
       .catch(err => {
@@ -138,9 +137,69 @@ module.exports.post = {
     res.redirect('/records');
   },
   edit: (req, res) => {
-    console.log('edit record:', req.body);
+    const { id, date, amount, type, tags, description } = req.body;
+    const list = [];
 
-    res.redirect('/records');
+    tags
+      .split(',')
+      // Remove whitespaces
+      .map(tag => tag.trim())
+      // Filter out invalid tags
+      .filter(t => !(t.length < 3 || t.length > 20))
+      // Remove duplicates
+      .forEach(t => {
+        if (!list.find(x => x.toLowerCase() === t.toLowerCase())) list.push(t);
+      });
+
+    req.user
+      .getRecords({
+        where: {
+          id: id
+        }
+      })
+      .then(records => {
+        if (records.length === 0) {
+          return Promise.resolve(undefined);
+        }
+
+        const newRecord = records[0];
+
+        // Filter tags which are present in db
+        req.user
+          .getTags({
+            where: {
+              name: {
+                [Op.in]: list
+              }
+            }
+          })
+          .then(tags => {
+            // Set tags to record
+            return newRecord.setTags(tags);
+          })
+          .then(() => {
+            // Set tags sucess
+
+            newRecord.date = date;
+            newRecord.amount = amount;
+            newRecord.type = type;
+            newRecord.description = description;
+
+            return newRecord.save();
+          })
+          .then(() => {
+            // Save record sucess
+            res.redirect('/message?message=Record edited&backLink=/records');
+          })
+          .catch(err => {
+            console.log("Couldn't create record:", err);
+
+            res.redirect(
+              "/message?message=Coundn't edit Record&backLink=/records/edit"
+            );
+          });
+      })
+      .catch(err => console.log('user.getRecord err:', err));
   },
   delete: (req, res) => {
     console.log('record to delete:', req.body.id);
