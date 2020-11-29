@@ -143,8 +143,30 @@ module.exports.post = {
     res.redirect('/records');
   },
   delete: (req, res) => {
-    console.log('delete record:', req.body);
+    console.log('record to delete:', req.body.id);
 
-    res.redirect('/records');
+    req.user
+      .getRecords({
+        where: {
+          id: req.body.id
+        }
+      })
+      .then(records => {
+        if (records.length === 0) {
+          return Promise.resolve(undefined);
+        }
+
+        return records[0].destroy();
+      })
+      .then(destroied => {
+        if (!destroied) {
+          res.redirect(
+            '/message?message=Record not found&backLink=/records/delete'
+          );
+        } else {
+          res.redirect('/message?message=Record deleted&backLink=/records');
+        }
+      })
+      .catch(err => console.log('user.getRecord err:', err));
   }
 };

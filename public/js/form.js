@@ -36,12 +36,8 @@ function search(id, cb) {
   };
 
   timeout = setTimeout(() => {
-    if (parseInt(id, 10) % 2 !== 0) {
-      cb(null);
-    } else {
-      cb(record);
-    }
-  }, 1 * 1000);
+    cb(record);
+  }, 0.1 * 1000);
 }
 
 idInput.addEventListener('input', e => {
