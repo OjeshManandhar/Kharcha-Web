@@ -26,7 +26,7 @@ module.exports.get = {
         res.render(_path('list'), {
           title: 'List Tag',
           backLink: '/tags',
-          tags: tags.map(t => t.tag).reverse()
+          tags: tags.map(t => t.name).reverse()
         });
       })
       .catch(err => console.log('user.getTags err:', err));
@@ -58,21 +58,21 @@ module.exports.post = {
         if (allTagsInvalid) return Promise.resolve(undefined);
 
         list.forEach(tag => {
-          // Skip in valid tag
+          // Skip invalid tag
           if (tag.length < 3 || tag.length > 20) return;
 
           const found =
             // Find tags that already exist in DB
-            tags.find(t => t.tag.toLowerCase() === tag.toLowerCase()) ||
+            tags.find(t => t.name.toLowerCase() === tag.toLowerCase()) ||
             /**
              * Find tags that already exist in list of tags to add
              * i.e. to remove multiple occurance of same tag
              */
-            tagsToAdd.find(t => t.tag.toLowerCase() === tag.toLowerCase());
+            tagsToAdd.find(t => t.name.toLowerCase() === tag.toLowerCase());
 
           if (!found)
             tagsToAdd.push({
-              tag: tag,
+              name: tag,
               userId: req.user.id
             });
         });
@@ -107,7 +107,7 @@ module.exports.post = {
     req.user
       .getTags({
         where: {
-          tag: {
+          name: {
             [Op.like]: `%${tagToSearch}%`
           }
         }
@@ -121,7 +121,7 @@ module.exports.post = {
               .map(t => {
                 const regex = new RegExp(`(${tagToSearch})`, 'ig');
 
-                return t.tag.replace(regex, '<strong>$1</strong>');
+                return t.name.replace(regex, '<strong>$1</strong>');
               })
               .reverse()
           });
@@ -145,7 +145,7 @@ module.exports.post = {
     req.user
       .getTags({
         // Case sensitive search using LIKE
-        where: Sequelize.where(Sequelize.col('tag'), 'LIKE BINARY', newTag)
+        where: Sequelize.where(Sequelize.col('name'), 'LIKE BINARY', newTag)
       })
       .then(tags => {
         if (tags && tags.length !== 0) {
@@ -162,7 +162,7 @@ module.exports.post = {
         req.user
           .getTags({
             // Case sensitive search using LIKE
-            where: Sequelize.where(Sequelize.col('tag'), 'LIKE BINARY', oldTag)
+            where: Sequelize.where(Sequelize.col('name'), 'LIKE BINARY', oldTag)
           })
           .then(tags => {
             if (tags && tags.length === 0) {
@@ -176,7 +176,7 @@ module.exports.post = {
 
             // Edit tag and save in DB
             const tag = tags[0];
-            tag.tag = newTag;
+            tag.name = newTag;
 
             return tag.save();
           })
@@ -193,7 +193,7 @@ module.exports.post = {
     Tag.destroy({
       where: {
         userId: req.user.id,
-        tag: {
+        name: {
           [Op.in]: [list]
         }
       }

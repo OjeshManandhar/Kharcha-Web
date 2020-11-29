@@ -8,7 +8,7 @@ const Tag = sequelize.define('tag', {
     primaryKey: true,
     autoIncrement: true
   },
-  tag: {
+  name: {
     type: DataTypes.STRING(20),
     allowNull: false,
     unique: 'userTag'
