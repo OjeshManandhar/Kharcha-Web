@@ -182,13 +182,7 @@ module.exports.post = {
       .getTags()
       .then(tags => {
         // Filter out tags which are no present in db
-        console.log('gc.tags:', gc.tags);
-        console.log(
-          'tags:',
-          tags.map(t => t.toJSON().name)
-        );
         gc.tags = gc.tags.filter(tag => tags.find(t => t.name === tag));
-        console.log('gc.tags:', gc.tags);
 
         let temp;
         const query = [];
@@ -232,6 +226,9 @@ module.exports.post = {
             },
             include: {
               model: Tag
+            },
+            through: {
+              attributes: []
             }
           })
           .then(records => {
@@ -248,16 +245,20 @@ module.exports.post = {
 
               record.tags = r.tags.map(t => t.name);
 
-              if (gc.tagsType === 'any') {
-                // Filter records which has any the required tags
-                if (gc.tags.some(tag => record.tags.find(t => t === tag))) {
-                  parsedRecords.push(record);
+              if (gc.tags.length > 0) {
+                if (gc.tagsType === 'any') {
+                  // Filter records which has any the required tags
+                  if (gc.tags.some(tag => record.tags.find(t => t === tag))) {
+                    parsedRecords.push(record);
+                  }
+                } else {
+                  // Filter records which has all the required tags
+                  if (gc.tags.every(tag => record.tags.find(t => t === tag))) {
+                    parsedRecords.push(record);
+                  }
                 }
               } else {
-                // Filter records which has all the required tags
-                if (gc.tags.every(tag => record.tags.find(t => t === tag))) {
-                  parsedRecords.push(record);
-                }
+                parsedRecords.push(record);
               }
             });
 
