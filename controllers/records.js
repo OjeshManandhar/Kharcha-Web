@@ -178,94 +178,106 @@ module.exports.post = {
           gc.tags.push(t);
       });
 
-    // console.log('Given criteria:', gc);
-
-    let temp;
-    const query = [];
-
-    // id
-    temp = queryGenerator(gc.id);
-    if (temp) {
-      query.push({ id: temp });
-    }
-
-    // date
-    temp = queryGenerator(gc.date);
-    if (temp) {
-      query.push({ date: temp });
-    }
-
-    // amount
-    temp = queryGenerator(gc.amount);
-    if (temp) {
-      query.push({ amount: temp });
-    }
-
-    // type
-    if (gc.type !== 'any') {
-      query.push({ type: gc.type });
-    }
-
-    // tags
-    const tagQuery = {};
-    if (gc.tags.length > 0) {
-      if (gc.tagsType === 'any') {
-        tagQuery[Op.or] = gc.tags;
-      } else if (gc.tagsType === 'all') {
-        tagQuery[Op.and] = gc.tags;
-      }
-    }
-
-    // description
-    if (gc.description) {
-      query.push({ description: { [Op.like]: `%${gc.description}%` } });
-    }
-
-    // console.log('query:', query);
-    // console.log('where:', {
-    //   where: {
-    //     [gc.criteria === 'any' ? Op.or : Op.and]: query
-    //   },
-    //   include: {
-    //     model: 'tags',
-    //     where: { ...tagQuery }
-    //   }
-    // });
-
     req.user
-      .getRecords({
-        where: {
-          [gc.criteria === 'any' ? Op.or : Op.and]: query
-        },
-        include: {
-          model: Tag,
-          where: tagQuery
+      .getTags()
+      .then(tags => {
+        // Filter out tags which are no present in db
+        console.log('gc.tags:', gc.tags);
+        console.log(
+          'tags:',
+          tags.map(t => t.toJSON().name)
+        );
+        gc.tags = gc.tags.filter(tag => tags.find(t => t.name === tag));
+        console.log('gc.tags:', gc.tags);
+
+        let temp;
+        const query = [];
+
+        // id
+        temp = queryGenerator(gc.id);
+        if (temp) {
+          query.push({ id: temp });
         }
-      })
-      .then(records => {
-        if (records.length > 0) {
-          records.forEach((r, index) => console.log(index, r.toJSON()));
-        } else {
-          console.log('records:', records);
+        // date
+        temp = queryGenerator(gc.date);
+        if (temp) {
+          query.push({ date: temp });
+        }
+        // amount
+        temp = queryGenerator(gc.amount);
+        if (temp) {
+          query.push({ amount: temp });
+        }
+        // type
+        if (gc.type !== 'any') {
+          query.push({ type: gc.type });
         }
 
-        // if (records.length > 0) {
-        //   res.redirect(
-        //     '/message?message=No records found&backLink=/records/filter'
-        //   );
-        // } else {
-        //   res.end();
+        // tag
+        // if (gc.tags.length > 0) {
+        //   query.push({ '$tags.name$': { [Op.in]: gc.tags } });
         // }
 
-        if (records.length > 0) {
-          res.end();
-        } else {
-          res.redirect(
-            '/message?message=No records found&backLink=/records/filter'
-          );
+        // description
+        if (gc.description) {
+          query.push({ description: { [Op.like]: `%${gc.description}%` } });
         }
+
+        req.user
+          .getRecords({
+            where: {
+              ...(query.length > 0
+                ? { [gc.criteria === 'any' ? Op.or : Op.and]: query }
+                : {})
+            },
+            include: {
+              model: Tag
+            }
+          })
+          .then(records => {
+            /**
+             * Will give records which has any tag
+             * Filter for tags here
+             */
+            const parsedRecords = [];
+            records.forEach(r => {
+              const record = r.toJSON();
+
+              delete record.createdAt;
+              delete record.updatedAt;
+
+              record.tags = r.tags.map(t => t.name);
+
+              if (gc.tagsType === 'any') {
+                // Filter records which has any the required tags
+                if (gc.tags.some(tag => record.tags.find(t => t === tag))) {
+                  parsedRecords.push(record);
+                }
+              } else {
+                // Filter records which has all the required tags
+                if (gc.tags.every(tag => record.tags.find(t => t === tag))) {
+                  parsedRecords.push(record);
+                }
+              }
+            });
+
+            parsedRecords.reverse();
+
+            if (parsedRecords.length > 0) {
+              res.render(_path('list'), {
+                title: 'Filter Records',
+                backLink: '/records',
+                records: parsedRecords
+              });
+            } else {
+              res.redirect(
+                '/message?message=No records found&backLink=/records/filter'
+              );
+            }
+          })
+          .catch(err => console.log('user.getRecord err:', err));
       })
-      .catch(err => console.log('user.getRecord err:', err));
+      .catch(err => console.log('user.getTags err:', err));
   },
   edit: (req, res) => {
     const { id, date, amount, type, tags, description } = req.body;
@@ -295,7 +307,7 @@ module.exports.post = {
 
         const newRecord = records[0];
 
-        // Filter tags which are present in db
+        // Filter out tags which are no present in db
         req.user
           .getTags({
             where: {
