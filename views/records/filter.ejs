@@ -95,9 +95,9 @@
                     value="debit"
                     required
                   />
-                  <label for="type" class="form__radio-label"
-                    >Debits only</label
-                  >
+                  <label for="type" class="form__radio-label">
+                    Debits only
+                  </label>
                 </div>
                 <div class="form__radio">
                   <input
@@ -107,9 +107,9 @@
                     value="credit"
                     required
                   />
-                  <label for="type" class="form__radio-label"
-                    >Credits only</label
-                  >
+                  <label for="type" class="form__radio-label">
+                    Credits only
+                  </label>
                 </div>
               </div>
             </li>
@@ -223,10 +223,15 @@
               </div>
             </li>
           </ul>
-          
-          <%- include('./../includes/buttonRow.ejs', { cancelLink: '/records', disabled: false }); %>
+
+          <p class="error"></p>
+
+          <%- include('./../includes/buttonRow.ejs', { cancelLink: '/records',
+          disabled: false }); %>
         </form>
       </div>
     </main>
+
+    <script src="/js/filterForm.js"></script>
   </body>
 </html>
