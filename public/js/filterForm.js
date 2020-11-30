@@ -9,7 +9,7 @@ form.addEventListener('submit', e => {
     end: document.querySelector('form input[name="id-end"]').value
   };
 
-  if (id.start && id.end && +id.start >= +id.end) {
+  if (id.start && id.end && +id.start > +id.end) {
     error.innerText = 'Start id must be less than end id';
     return;
   }
@@ -20,7 +20,7 @@ form.addEventListener('submit', e => {
     end: document.querySelector('form input[name="date-end"]').value
   };
 
-  if (date.start && date.end && new Date(date.start) >= new Date(date.end)) {
+  if (date.start && date.end && new Date(date.start) > new Date(date.end)) {
     error.innerText = 'Start date must be before end date';
     return;
   }
@@ -34,7 +34,7 @@ form.addEventListener('submit', e => {
   if (
     amount.start &&
     amount.end &&
-    parseFloat(amount.start) >= parseFloat(amount.end)
+    parseFloat(amount.start) > parseFloat(amount.end)
   ) {
     error.innerText = 'Start amount must be less than end amount';
     return;
