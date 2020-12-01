@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('./includes/head.ejs'); %>
+    <%- include('./../includes/head.ejs'); %>
 
     <link rel="stylesheet" href="/css/menu.css" />
   </head>
@@ -10,10 +10,10 @@
     <main class="main">
       <div class="main__container">
         <div class="menu">
-          <%- include('./includes/title.ejs', { backLink: '' }); %>
+          <%- include('./../includes/title.ejs', { backLink: '' }); %>
 
           <%- 
-            include('./includes/menu.ejs', { items: [
+            include('./../includes/menu.ejs', { items: [
               {
                 link: '/records',
                 name: 'Records'
@@ -23,11 +23,11 @@
                 name: 'Tags',
               },
               {
-                link: '/',
+                link: '/home/settings',
                 name: 'Settings',
               },
               {
-                link: '/',
+                link: '/logout',
                 name: 'Log Out',
                 marginTop: true
               }
