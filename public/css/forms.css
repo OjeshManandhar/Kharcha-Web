@@ -63,6 +63,16 @@
   margin-right: 10px;
 }
 
+.form__label--medium {
+  min-width: 160px;
+  max-width: 160px;
+}
+
+.form__label--thick {
+  min-width: 200px;
+  max-width: 200px;
+}
+
 .form__required {
   color: red;
 }
