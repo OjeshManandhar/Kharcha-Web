@@ -9,6 +9,7 @@ require('dotenv').config();
 const errorController = require('./controllers/error');
 
 // routes
+const authRouter = require('./routes/auth');
 const mainRouter = require('./routes/main');
 const tagsRouter = require('./routes/tags');
 const recordsRouter = require('./routes/records');
@@ -48,6 +49,7 @@ app.use((req, res, next) => {
 
 // Routers
 app.use('/', mainRouter);
+app.use('/auth', authRouter);
 app.use('/tags', tagsRouter);
 app.use('/records', recordsRouter);
 

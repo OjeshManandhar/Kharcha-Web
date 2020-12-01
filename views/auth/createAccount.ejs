@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./../includes/head.ejs'); %>
+
+    <link rel="stylesheet" href="/css/forms.css" />
+  </head>
+
+  <body>
+    <main class="main">
+      <div class="main__container">
+        <form 
+          action="/auth/create-account"
+          class="form form--small"
+          method="POST"
+        >
+          <%- include('./../includes/title.ejs', { backLink: '/' }); %>
+
+          <ul class="form__list">
+            <li class="form__item">
+              <label for="username" class="form__label">
+                <span>Username <span class="form__required">*</span></span>
+              </label>
+              <input
+                type="text"
+                class="form__input"
+                name="username"
+                required
+                autofocus
+              />
+            </li>
+
+            <li class="form__item">
+              <label for="password" class="form__label">
+                <span>Password <span class="form__required">*</span></span>
+              </label>
+              <input
+                type="password"
+                class="form__input"
+                name="password"
+                required
+              />
+            </li>
+
+            <li class="form__item">
+              <label for="confirm-password" class="form__label">
+                <span>Confirm Password <span class="form__required">*</span></span>
+              </label>
+              <input
+                type="password"
+                class="form__input"
+                name="confirm-password"
+                required
+              />
+            </li>
+          </ul>
+
+          <%- include('./../includes/buttonRow.ejs', { cancelLink: '/',
+          disabled: false }); %>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
