@@ -26,7 +26,7 @@ function showMessage() {
   submit.disabled = true;
 }
 
-function autoPopulate(record) {
+function populateFields(record) {
   console.log('record:', record);
 
   const tagName = autoPopulateElem.tagName;
@@ -89,11 +89,7 @@ function search(id, cb) {
   };
 
   timeout = setTimeout(() => {
-    if (id % 2 === 0) {
-      cb(record);
-    } else {
-      cb(null);
-    }
+    cb(record);
   }, 0.1 * 1000);
 }
 
@@ -114,7 +110,7 @@ idInput.addEventListener('input', e => {
         message.innerText = messageStrings.notFound;
       } else {
         showRecord();
-        autoPopulate(record);
+        populateFields(record);
       }
     });
   }
