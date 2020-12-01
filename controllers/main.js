@@ -2,7 +2,7 @@
 const { path } = require('./../utils/path');
 
 module.exports.getIndex = (req, res) => {
-  res.redirect('/home');
+  res.render(path('index'), { title: 'Kharcha' });
 };
 
 module.exports.getHome = (req, res) => {

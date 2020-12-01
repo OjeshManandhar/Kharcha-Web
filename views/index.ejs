@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./includes/head.ejs'); %>
+
+    <link rel="stylesheet" href="/css/menu.css" />
+  </head>
+
+  <body>
+    <main class="main">
+      <div class="main__container">
+        <div class="menu">
+          <%- include('./includes/title.ejs', { backLink: '' }); %>
+
+          <%-
+            include('./includes/menu.ejs', { items: [
+              {
+                link: '/auth/login',
+                name: 'Log In'
+              },
+              {
+                link: 'auth/create',
+                name: 'Create Account'
+              }
+            ]});
+          %>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
