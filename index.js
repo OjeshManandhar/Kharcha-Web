@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const sessionStore = require('express-session-sequelize')(session.Store);
 
 // env
 require('dotenv').config();
@@ -39,11 +40,15 @@ app.use(express.static(path('public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // session
+const sequelizeSessionStore = new sessionStore({
+  db: sequelize
+});
 app.use(
   session({
     secret: process.env.APP_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: sequelizeSessionStore,
     cookie: {
       maxAge: 1 * 24 * 60 * 60 * 1000 // 1 day
     }
