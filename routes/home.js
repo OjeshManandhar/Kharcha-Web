@@ -12,6 +12,7 @@ const isAuth = require('./../middleware/isAuth');
 
 const router = express.Router();
 
+// Authenticate
 router.use(isAuth);
 
 router.get('/', homeController.get.index);

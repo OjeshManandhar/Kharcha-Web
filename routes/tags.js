@@ -4,7 +4,13 @@ const express = require('express');
 // controllers
 const tagsController = require('./../controllers/tags');
 
+// middleware
+const isAuth = require('./../middleware/isAuth');
+
 const router = express.Router();
+
+// Authenticate
+router.use(isAuth);
 
 // GET
 router.get('/', tagsController.get.index);

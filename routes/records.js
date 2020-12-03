@@ -4,7 +4,13 @@ const express = require('express');
 // controllers
 const recordsController = require('./../controllers/records');
 
+// middleware
+const isAuth = require('./../middleware/isAuth');
+
 const router = express.Router();
+
+// Authenticate
+router.use(isAuth);
 
 // GET
 router.get('/', recordsController.get.index);
