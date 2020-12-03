@@ -8,7 +8,7 @@ const User = sequelize.define('user', {
     primaryKey: true,
     autoIncrement: true
   },
-  userName: {
+  username: {
     type: DataTypes.STRING(30),
     allowNull: false,
     unique: true,
@@ -17,10 +17,11 @@ const User = sequelize.define('user', {
     }
   },
   password: {
-    type: DataTypes.STRING(50),
+    // hashed password will be saved
+    type: DataTypes.STRING(),
     allowNull: false,
     validate: {
-      len: [8, 50]
+      min: 50
     }
   }
 });

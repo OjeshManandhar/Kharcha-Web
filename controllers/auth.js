@@ -1,3 +1,6 @@
+// packages
+const bcrypt = require('bcryptjs');
+
 // model
 const { User } = require('./../models');
 
@@ -30,30 +33,105 @@ module.exports.get = {
 
 module.exports.post = {
   login: (req, res) => {
-    console.log('post login:', req.body);
+    const username = req.body.username;
+    const password = req.body.password;
 
-    User.findByPk(1)
+    User.findOne({
+      where: {
+        username: username
+      }
+    })
       .then(user => {
-        req.session.userId = user.id;
-        req.session.loggedIn = true;
+        if (!user) {
+          res.redirect(
+            '/message?message=Username not found&backLink=/auth/login'
+          );
 
-        req.session.save(err => {
-          if (err) {
-            console.log('Session save error:', err);
-            return;
-          }
+          return;
+        }
 
-          res.redirect('/home');
-        });
+        bcrypt
+          .compare(password, user.password)
+          .then(passwordMatch => {
+            if (passwordMatch === true) {
+              req.session.userId = user.id;
+              req.session.loggedIn = true;
+
+              req.session.save(err => {
+                if (err) {
+                  console.log('Session save error:', err);
+                  return;
+                }
+
+                res.redirect('/home');
+              });
+            } else {
+              res.redirect(
+                '/message?message=Incorrect password&backLink=/auth/login'
+              );
+            }
+          })
+          .catch(err => console.log('bcrypt compare error:', err));
       })
-      .catch(err => {
-        console.log('Invalid user:', err);
-      });
+      .catch(err => console.log('User.findOne error:', err));
   },
   createAccount: (req, res) => {
-    console.log('post create:', req.body);
+    const username = req.body.username;
+    const password = req.body.password;
+    const confirmPassword = req.body['confirm-password'];
 
-    res.redirect('/home');
+    if (password !== confirmPassword) {
+      res.redirect(
+        '/message?message=Password and Confirm Password must be same&backLink=/auth/create-account'
+      );
+      return;
+    }
+
+    User.findOne({
+      where: {
+        username: username
+      }
+    })
+      .then(user => {
+        if (user) {
+          res.redirect(
+            '/message?message=Username already exists&backLink=/auth/create-account'
+          );
+
+          return;
+        }
+
+        bcrypt
+          .hash(password, 12)
+          .then(hashedPassword => {
+            return User.create({
+              username: username,
+              password: hashedPassword
+            });
+          })
+          .then(user => {
+            req.session.userId = user.id;
+            req.session.loggedIn = true;
+
+            req.session.save(err => {
+              if (err) {
+                console.log('Session save error:', err);
+                return;
+              }
+
+              res.redirect('/home');
+            });
+          })
+          .catch(err => {
+            console.log('bcrypt or User.create err:', err);
+
+            res.redirect(
+              '/message?message=Could not create an account&backLink=/auth/create-account'
+            );
+          });
+      })
+      .catch(err => console.log('User.findOne error:', err));
+    User.create({ userName: 'TestUser', password: 'test password' });
   },
   changePassword: (req, res) => {
     console.log('post change:', req.body);

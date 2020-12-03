@@ -88,16 +88,6 @@ sequelize
   // .sync({ force: true })
   .sync()
   .then(() => {
-    return User.findByPk(1);
-  })
-  .then(user => {
-    if (!user) {
-      return User.create({ userName: 'TestUser', password: 'test password' });
-    }
-
-    return Promise.resolve(user);
-  })
-  .then(() => {
     const port = process.env.PORT || 4000;
     app.listen(port, () => console.log('Server started at port:', port));
   })
