@@ -1,3 +1,6 @@
+// model
+const { User } = require('./../models');
+
 // utiils
 const { path } = require('./../utils/path');
 
@@ -29,9 +32,16 @@ module.exports.post = {
   login: (req, res) => {
     console.log('post login:', req.body);
 
-    req.session.loggedIn = true;
+    User.findByPk(1)
+      .then(user => {
+        req.session.userId = user.id;
+        req.session.loggedIn = true;
 
-    res.redirect('/home');
+        res.redirect('/home');
+      })
+      .catch(err => {
+        console.log('Invalid user:', err);
+      });
   },
   createAccount: (req, res) => {
     console.log('post create:', req.body);

@@ -55,17 +55,6 @@ app.use(
   })
 );
 
-// Add Test user to request
-app.use((req, res, next) => {
-  User.findByPk(1)
-    .then(user => {
-      req.user = user;
-
-      next();
-    })
-    .catch(err => console.log('User not found:', err));
-});
-
 // Routers
 app.use('/', mainRouter);
 app.use('/auth', authRouter);
