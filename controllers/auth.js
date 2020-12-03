@@ -37,7 +37,14 @@ module.exports.post = {
         req.session.userId = user.id;
         req.session.loggedIn = true;
 
-        res.redirect('/home');
+        req.session.save(err => {
+          if (err) {
+            console.log('Session save error:', err);
+            return;
+          }
+
+          res.redirect('/home');
+        });
       })
       .catch(err => {
         console.log('Invalid user:', err);
