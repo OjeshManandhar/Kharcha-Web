@@ -15,7 +15,7 @@ const Record = sequelize.define('record', {
    * ... then updating the newly created record
    */
   _id: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(20),
     unique: true,
     allowNull: false,
     defaultValue: 'null'

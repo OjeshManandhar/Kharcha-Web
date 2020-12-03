@@ -14,6 +14,9 @@ function _path(...args) {
 function queryGenerator(data) {
   // Convert to boolean for comparing
   if (!!(data.start && data.end)) {
+    if (data.start === data.end) {
+      return { [Op.eq]: data.start };
+    }
     return { [Op.and]: [{ [Op.gte]: data.start }, { [Op.lte]: data.end }] };
   } else if (!!data.start) {
     return { [Op.gte]: data.start };
@@ -22,6 +25,16 @@ function queryGenerator(data) {
   }
 
   return undefined;
+}
+
+function padWithZeroes(number) {
+  let my_string = '' + number;
+
+  while (my_string.length < 10) {
+    my_string = '0' + my_string;
+  }
+
+  return my_string;
 }
 
 // GET
@@ -90,7 +103,7 @@ module.exports.post = {
 
     Record.create({
       userId: req.user.id,
-      _id: "doesn't matter what value is given",
+      _id: 'null',
       date,
       amount,
       type,
@@ -98,7 +111,7 @@ module.exports.post = {
     })
       .then(record => {
         // Making and adding _id
-        record._id = `${record.userId}+${record.id}`;
+        record._id = padWithZeroes(record.userId) + padWithZeroes(record.id);
 
         newRecord = record;
 
