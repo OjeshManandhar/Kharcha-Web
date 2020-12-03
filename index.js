@@ -1,9 +1,14 @@
 // packages
 const express = require('express');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 
 // env
 require('dotenv').config();
+
+// database
+const { sequelize } = require('./database');
+const setAssociations = require('./database/associations');
 
 // controllers
 const errorController = require('./controllers/error');
@@ -14,10 +19,6 @@ const homeRouter = require('./routes/home');
 const mainRouter = require('./routes/main');
 const tagsRouter = require('./routes/tags');
 const recordsRouter = require('./routes/records');
-
-// database
-const { sequelize } = require('./database');
-const setAssociations = require('./database/associations');
 
 // model
 const { User } = require('./models');
@@ -31,11 +32,23 @@ const app = express();
 app.set('views', 'views');
 app.set('view engine', 'ejs');
 
-// Static
+// Static files
 app.use(express.static(path('public')));
 
-// request parser
+// Request body parser
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// session
+app.use(
+  session({
+    secret: process.env.APP_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1 * 24 * 60 * 60 * 1000 // 1 day
+    }
+  })
+);
 
 // Add Test user to request
 app.use((req, res, next) => {

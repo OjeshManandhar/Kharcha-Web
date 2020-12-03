@@ -2,6 +2,11 @@
 const { path } = require('./../utils/path');
 
 module.exports.getIndex = (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/home');
+    return;
+  }
+
   res.render(path('index'), { title: 'Kharcha' });
 };
 

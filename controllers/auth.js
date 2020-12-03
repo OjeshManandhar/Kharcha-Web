@@ -18,6 +18,8 @@ module.exports.post = {
   login: (req, res) => {
     console.log('post login:', req.body);
 
+    req.session.loggedIn = true;
+
     res.redirect('/home');
   },
   createAccount: (req, res) => {
