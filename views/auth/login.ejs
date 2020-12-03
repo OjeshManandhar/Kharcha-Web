@@ -25,6 +25,8 @@
                 type="text"
                 class="form__input"
                 name="username"
+                minlength="5"
+                maxlength="30"
                 required
                 autofocus
               />
@@ -38,15 +40,21 @@
                 type="password"
                 class="form__input"
                 name="password"
+                minlength="8"
+                maxlength="50"
                 required
               />
             </li>
           </ul>
+          
+          <p class="error"></p>
 
           <%- include('./../includes/buttonRow.ejs', { cancelLink: '/',
           disabled: false }); %>
         </form>
       </div>
     </main>
+
+    <script src="/js/loginValidation.js"></script>
   </body>
 </html>

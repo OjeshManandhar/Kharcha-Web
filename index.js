@@ -92,7 +92,7 @@ sequelize
   })
   .then(user => {
     if (!user) {
-      return User.create({ userName: 'Test', password: 'test password' });
+      return User.create({ userName: 'TestUser', password: 'test password' });
     }
 
     return Promise.resolve(user);
