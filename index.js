@@ -55,6 +55,23 @@ app.use(
   })
 );
 
+// Find user
+app.use((req, res, next) => {
+  if (req.session.loggedIn && req.session.userId) {
+    User.findByPk(req.session.userId)
+      .then(user => {
+        req.user = user;
+        next();
+      })
+      .catch(err => {
+        console.log('Find user error:', err);
+        next();
+      });
+  } else {
+    next();
+  }
+});
+
 // Routers
 app.use('/', mainRouter);
 app.use('/auth', authRouter);
