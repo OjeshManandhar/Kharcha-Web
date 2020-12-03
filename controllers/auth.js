@@ -11,6 +11,17 @@ module.exports.get = {
   },
   createAccount: (req, res) => {
     res.render(_path('createAccount'), { title: 'Create Account' });
+  },
+  logout: (req, res) => {
+    req.session.destroy(err => {
+      if (err) {
+        console.log('Logout error:', err);
+        res.redirect("/message/message=Couldn't Log out&backLink=/home");
+        return;
+      }
+
+      res.redirect('/');
+    });
   }
 };
 
