@@ -9,13 +9,20 @@ const confirmPassword = document.querySelector(
 form.addEventListener('submit', e => {
   e.preventDefault();
 
-  if (username && username.value.indexOf('') > -1) {
+  if (username && username.value.indexOf(' ') > -1) {
     error.innerText = 'Username cannot contain space.';
     return;
   }
 
-  const pass = password.value;
-  const confirmPass = confirmPassword.value;
+  if (password && confirmPassword) {
+    const pass = password.value;
+    const confirmPass = confirmPassword.value;
 
-  if (pass === confirmPass) e.target.submit();
+    if (pass !== confirmPass) {
+      error.innerText = 'Password and confirm password must be same';
+      return;
+    }
+  }
+
+  e.target.submit();
 });
