@@ -12,10 +12,6 @@ const message = document.querySelector('.block__message');
 const submit = document.querySelector('.form button[type="submit"]');
 const autoPopulateElem = document.querySelector('.auto-populate');
 
-// For aborting search request
-const controller = new AbortController();
-const signal = controller.signal;
-
 function showRecord() {
   message.classList.add('display-hidden');
   record.classList.remove('visibility-hidden');
@@ -81,10 +77,6 @@ function populateFields(record) {
 }
 
 function search(recordId, cb) {
-  // Abort the sent request
-  controller.abort();
-
-  // Send new request
   fetch('http://' + window.location.host + '/records/detail', {
     method: 'POST',
     headers: {
@@ -103,7 +95,11 @@ function search(recordId, cb) {
       if (Object.entries(response).length === 0) {
         cb(null);
       } else {
-        cb(response);
+        if (response.id === recordId) {
+          cb(response);
+        } else {
+          cb(null);
+        }
       }
     })
     .catch(err => {
