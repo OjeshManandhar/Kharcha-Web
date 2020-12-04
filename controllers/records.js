@@ -115,7 +115,7 @@ module.exports.post = {
           _id: 0,
           date,
           amount,
-          type,
+          type: type.charAt(0).toUpperCase() + type.slice(1),
           description
         })
           .then(record => {
@@ -352,7 +352,7 @@ module.exports.post = {
 
             newRecord.date = date;
             newRecord.amount = amount;
-            newRecord.type = type;
+            newRecord.type = type.charAt(0).toUpperCase() + type.slice(1);
             newRecord.description = description;
 
             return newRecord.save();
