@@ -5,8 +5,7 @@ const Record = sequelize.define('record', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true,
-    autoIncrement: true
+    primaryKey: true
   },
   /**
    * unique field for using it in recordTag
@@ -15,10 +14,13 @@ const Record = sequelize.define('record', {
    * ... then updating the newly created record
    */
   _id: {
-    type: DataTypes.STRING(20),
+    type: DataTypes.INTEGER,
     unique: true,
     allowNull: false,
-    defaultValue: 'null'
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
   },
   date: {
     type: DataTypes.DATEONLY,

@@ -1,5 +1,6 @@
 // packages
 const { Op } = require('sequelize');
+const { max } = require('../models/tag');
 
 // model
 const { Tag, Record } = require('./../models');
@@ -30,7 +31,7 @@ function queryGenerator(data) {
 function padWithZeroes(number) {
   let my_string = '' + number;
 
-  while (my_string.length < 10) {
+  while (my_string.length < 5) {
     my_string = '0' + my_string;
   }
 
@@ -99,63 +100,76 @@ module.exports.post = {
         if (!list.find(x => x.toLowerCase() === t.toLowerCase())) list.push(t);
       });
 
-    let newRecord;
-
-    Record.create({
-      userId: req.user.id,
-      _id: 'null',
-      date,
-      amount,
-      type,
-      description
+    Record.max('id', {
+      where: {
+        userId: req.user.id
+      }
     })
-      .then(record => {
-        // Making and adding _id
-        record._id = padWithZeroes(record.userId) + padWithZeroes(record.id);
+      .then(maxId => {
+        let newRecord;
+        const newId = !maxId ? 1 : maxId + 1;
+        console.log('id:', maxId, newId);
 
-        newRecord = record;
+        Record.create({
+          id: newId,
+          userId: req.user.id,
+          _id: 0,
+          date,
+          amount,
+          type,
+          description
+        })
+          .then(record => {
+            // Making and adding _id
+            record._id = parseInt(record.userId + padWithZeroes(record.id), 10);
 
-        return record.save();
-      })
-      .then(() => {
-        // Filter tags which are present in db
-        return req.user.getTags({
-          where: {
-            name: {
-              [Op.in]: list
+            newRecord = record;
+
+            return record.save();
+          })
+          .then(() => {
+            // Filter tags which are present in db
+            return req.user.getTags({
+              where: {
+                name: {
+                  [Op.in]: list
+                }
+              }
+            });
+          })
+          .then(tags => {
+            // Add tags to record
+            return newRecord.addTags(tags);
+          })
+          .then(() => {
+            // Set tags sucess
+            res.redirect('/message?message=Record created&backLink=/records');
+          })
+          .catch(err => {
+            console.log("Couldn't create record:", err);
+
+            // Delete record if it exists use newRecord
+            if (newRecord) {
+              newRecord
+                .destroy()
+                .then(() =>
+                  console.log(
+                    "Couldn't create record completely. Deleted record"
+                  )
+                )
+                .catch(err =>
+                  console.log(
+                    "Couldn't create record completely. Couldn't delete record completely too"
+                  )
+                );
             }
-          }
-        });
-      })
-      .then(tags => {
-        // Add tags to record
-        return newRecord.addTags(tags);
-      })
-      .then(() => {
-        // Set tags sucess
-        res.redirect('/message?message=Record created&backLink=/records');
-      })
-      .catch(err => {
-        console.log("Couldn't create record:", err);
 
-        // Delete record if it exists use newRecord
-        if (newRecord) {
-          newRecord
-            .destroy()
-            .then(() =>
-              console.log("Couldn't create record completely. Deleted record")
-            )
-            .catch(err =>
-              console.log(
-                "Couldn't create record completely. Couldn't delete record completely too"
-              )
+            res.redirect(
+              "/message?message=Coundn't create Record&backLink=/records/add"
             );
-        }
-
-        res.redirect(
-          "/message?message=Coundn't create Record&backLink=/records/add"
-        );
-      });
+          });
+      })
+      .catch(err => console.log('Record.max error:', err));
   },
   filter: (req, res) => {
     // gc = givenCriteria
