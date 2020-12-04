@@ -43,7 +43,13 @@
                 <div class="list__row">
                   <div class="list__label">Description</div>
                   <div class="list__value list__value--description">
-                    <%= record.description %>
+                    <%# 
+                      Need to replace all '\n' by '<br />' otherwise
+                      line breaks wont be shown
+                      Also need to use '-' instead of '=' in next ejs tag to
+                      past the description with '<br />' as HTML and not text
+                    %>
+                    <%- record.description.replace(/\n/g, '<br />') %>
                   </div>
                 </div>
               </div>

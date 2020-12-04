@@ -76,7 +76,7 @@ function populateFields(record) {
 
     document.querySelector(
       '.auto-populate textarea[name="description"]'
-    ).innerText = record.description;
+    ).innerHTML = record.description;
   }
 }
 
