@@ -240,7 +240,11 @@ module.exports.post = {
 
         // description
         if (gc.description) {
-          query.push({ description: { [Op.like]: `%${gc.description}%` } });
+          if (process.env.DB_DIALECT === 'mysql') {
+            query.push({ description: { [Op.like]: `%${gc.description}%` } });
+          } else {
+            query.push({ description: { [Op.iLike]: `%${gc.description}%` } });
+          }
         }
 
         req.user

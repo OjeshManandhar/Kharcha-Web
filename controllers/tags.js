@@ -108,7 +108,9 @@ module.exports.post = {
       .getTags({
         where: {
           name: {
-            [Op.like]: `%${tagToSearch}%`
+            [process.env.DB_DIALECT === 'mysql'
+              ? Op.like
+              : Op.iLike]: `%${tagToSearch}%`
           }
         }
       })
@@ -144,8 +146,12 @@ module.exports.post = {
     // check for new Tag
     req.user
       .getTags({
-        // Case sensitive search using LIKE
-        where: Sequelize.where(Sequelize.col('name'), 'LIKE BINARY', newTag)
+        // Case sensitive search using LIKE BINARY for MySQL
+        where: Sequelize.where(
+          Sequelize.col('name'),
+          process.env.DB_DIALECT === 'mysql' ? 'LIKE BINARY' : 'LIKE',
+          newTag
+        )
       })
       .then(tags => {
         if (tags && tags.length !== 0) {
@@ -161,8 +167,12 @@ module.exports.post = {
          */
         req.user
           .getTags({
-            // Case sensitive search using LIKE
-            where: Sequelize.where(Sequelize.col('name'), 'LIKE BINARY', oldTag)
+            // Case sensitive search using LIKE BINARY for MySQL
+            where: Sequelize.where(
+              Sequelize.col('name'),
+              process.env.DB_DIALECT === 'mysql' ? 'LIKE BINARY' : 'LIKE',
+              oldTag
+            )
           })
           .then(tags => {
             if (tags && tags.length === 0) {
