@@ -13,9 +13,17 @@ function _path(...args) {
 
 module.exports.get = {
   login: (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect('/home');
+      return;
+    }
     res.render(_path('login'), { title: 'Log In' });
   },
   createAccount: (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect('/home');
+      return;
+    }
     res.render(_path('createAccount'), { title: 'Create Account' });
   },
   logout: (req, res) => {
