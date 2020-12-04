@@ -85,15 +85,18 @@ function search(recordId, cb) {
   controller.abort();
 
   // Send new request
-  fetch('http://' + window.location.host + '/records/detail', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      id: recordId
-    })
-  })
+  fetch(
+    window.location.protocol + '//' + window.location.host + '/records/detail',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: recordId
+      })
+    }
+  )
     .then(response => {
       if (response.ok) return response.json();
 
