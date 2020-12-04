@@ -134,9 +134,80 @@ module.exports.post = {
     User.create({ userName: 'TestUser', password: 'test password' });
   },
   changePassword: (req, res) => {
-    console.log('post change:', req.body);
+    const oldPass = req.body['old-password'];
+    const password = req.body.password;
+    const confirmPassword = req.body['confirm-password'];
 
-    res.redirect('/home');
+    if (oldPass === password || oldPass === confirmPassword) {
+      res.redirect(
+        '/message?message=New password and Old password cannot be same&backLink=/home/change-password'
+      );
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      res.redirect(
+        '/message?message=Password and Confirm Password must be same&backLink=/home/change-password'
+      );
+      return;
+    }
+
+    User.findByPk(req.user.id)
+      .then(user => {
+        if (!user) {
+          res.redirect(
+            "/message?message=Couldn't change password&backLink=/home/change-password"
+          );
+          return;
+        }
+
+        bcrypt
+          .compare(oldPass, user.password)
+          .then(passwordMatch => {
+            if (!passwordMatch) {
+              res.redirect(
+                '/message?message=Incorrect old password&backLink=/home/change-password'
+              );
+              return;
+            }
+
+            bcrypt
+              .hash(password, 12)
+              .then(hashedPassword => {
+                req.user.password = hashedPassword;
+
+                return req.user.save();
+              })
+              .then(user => {
+                if (user) {
+                  res.redirect(
+                    '/message?message=Password Changed&backLink=/home'
+                  );
+                  return;
+                }
+
+                res.redirect(
+                  "/message?message=Couldn't change password&backLink=/home/change-password"
+                );
+                return;
+              })
+              .catch(err => {
+                console.log('hash password or User.save err:', err);
+                res.redirect(
+                  "/message?message=Couldn't change password&backLink=/home/change-password"
+                );
+                return;
+              });
+          })
+          .catch(err => {
+            console.log('hash compare err:', err);
+            res.redirect(
+              "/message?message=Couldn't change password&backLink=/home/change-password"
+            );
+            return;
+          });
+      })
+      .catch(err => console.log('User.finByPk err:', err));
   },
   deleteAccount: (req, res) => {
     console.log('post delete:', req.body);
