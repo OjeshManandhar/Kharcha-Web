@@ -210,8 +210,25 @@ module.exports.post = {
       .catch(err => console.log('User.finByPk err:', err));
   },
   deleteAccount: (req, res) => {
-    console.log('post delete:', req.body);
+    req.user
+      .destroy()
+      .then(sucess => {
+        console.log('destroy sucess:', sucess);
 
-    res.redirect('/home');
+        req.session.destroy(err => {
+          if (err) {
+            console.log('account delete session destroy error:', err);
+          }
+        });
+
+        res.redirect('/message?message=Account Deleted&backLink=/');
+      })
+      .catch(err => {
+        console.log('user.destroy err:', err);
+
+        res.redirect(
+          "/message?message=Couldn't delete account&backLink=/home/delete-account"
+        );
+      });
   }
 };
