@@ -1,6 +1,5 @@
 // packages
 const { Op } = require('sequelize');
-const { max } = require('../models/tag');
 
 // model
 const { Tag, Record } = require('./../models');
@@ -398,5 +397,42 @@ module.exports.post = {
         }
       })
       .catch(err => console.log('user.getRecord err:', err));
+  },
+  detail: (req, res) => {
+    const id = req.body.id;
+
+    req.user
+      .getRecords({
+        where: {
+          id: id
+        },
+        include: Tag
+      })
+      .then(records => {
+        if (!records) {
+          res.send({});
+          return;
+        }
+        if (records.length !== 1) {
+          res.send({});
+          return;
+        }
+
+        const record = records[0].toJSON();
+
+        record.tags = record.tags.map(t => t.name);
+
+        // Remove un-necessary data
+        delete record._id;
+        delete record.userId;
+        delete record.createdAt;
+        delete record.updatedAt;
+
+        res.send(record);
+      })
+      .catch(err => {
+        console.log('user.getRecord err:', err);
+        res.send({});
+      });
   }
 };

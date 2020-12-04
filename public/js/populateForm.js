@@ -12,6 +12,10 @@ const message = document.querySelector('.block__message');
 const submit = document.querySelector('.form button[type="submit"]');
 const autoPopulateElem = document.querySelector('.auto-populate');
 
+// For aborting search request
+const controller = new AbortController();
+const signal = controller.signal;
+
 function showRecord() {
   message.classList.add('display-hidden');
   record.classList.remove('visibility-hidden');
@@ -27,8 +31,6 @@ function showMessage() {
 }
 
 function populateFields(record) {
-  console.log('record:', record);
-
   const tagName = autoPopulateElem.tagName;
 
   if (tagName === 'DIV') {
@@ -78,19 +80,36 @@ function populateFields(record) {
   }
 }
 
-function search(id, cb) {
-  const record = {
-    id: id,
-    date: '2020-09-21',
-    amount: (+id) ** 3,
-    type: 'Credit',
-    tags: ['qwe', 'asd'],
-    description: '123havdladksaj dblsakdblsak dbsakdbl sakdblsadh'
-  };
+function search(recordId, cb) {
+  // Abort the sent request
+  controller.abort();
 
-  timeout = setTimeout(() => {
-    cb(record);
-  }, 0.1 * 1000);
+  // Send new request
+  fetch('http://' + window.location.host + '/records/detail', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: recordId
+    })
+  })
+    .then(response => {
+      if (response.ok) return response.json();
+
+      return undefined;
+    })
+    .then(response => {
+      if (Object.entries(response).length === 0) {
+        cb(null);
+      } else {
+        cb(response);
+      }
+    })
+    .catch(err => {
+      console.log('Fetch error:', err);
+      cb(null);
+    });
 }
 
 idInput.addEventListener('input', e => {
