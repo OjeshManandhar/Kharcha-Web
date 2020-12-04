@@ -18,9 +18,8 @@ const submit = document.querySelector('.form button[type="submit"]');
 const autoPopulateElem = document.querySelector('.auto-populate');
 
 // For aborting search request
+let controller = null;
 let requestStatus = ERequestStatus.notSent;
-const controller = new AbortController();
-const signal = controller.signal;
 
 function showRecord() {
   message.classList.add('display-hidden');
@@ -88,19 +87,22 @@ function populateFields(record) {
 
 function search(recordId, cb) {
   // Abort previous request
-  if (requestStatus === ERequestStatus.sent) {
+  if (requestStatus === ERequestStatus.sent && controller) {
     controller.abort();
-    console.log('Abort request');
+
+    cb(null);
+    controller = null;
+    requestStatus = ERequestStatus.notSent;
   }
 
   // Send new request
+  controller = new AbortController();
   requestStatus = ERequestStatus.sent;
-  console.log('Send request');
   fetch(
     window.location.protocol + '//' + window.location.host + '/records/detail',
     {
       method: 'POST',
-      signal: signal,
+      signal: controller.signal,
       headers: {
         'Content-Type': 'application/json'
       },
