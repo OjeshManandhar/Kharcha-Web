@@ -1,10 +1,15 @@
 let timeout = null;
 
-const messageStrings = {
+const messageStrings = Object.freeze({
   blank: 'Enter ID',
   searhing: 'Searching',
   notFound: 'Record not found'
-};
+});
+
+const ERequestStatus = Object.freeze({
+  notSent: 0,
+  sent: 1
+});
 
 const idInput = document.querySelector('.form__item input[name="id"]');
 const record = document.querySelector('.record');
@@ -13,6 +18,7 @@ const submit = document.querySelector('.form button[type="submit"]');
 const autoPopulateElem = document.querySelector('.auto-populate');
 
 // For aborting search request
+let requestStatus = ERequestStatus.notSent;
 const controller = new AbortController();
 const signal = controller.signal;
 
@@ -81,14 +87,20 @@ function populateFields(record) {
 }
 
 function search(recordId, cb) {
-  // Abort the sent request
-  controller.abort();
+  // Abort previous request
+  if (requestStatus === ERequestStatus.sent) {
+    controller.abort();
+    console.log('Abort request');
+  }
 
   // Send new request
+  requestStatus = ERequestStatus.sent;
+  console.log('Send request');
   fetch(
     window.location.protocol + '//' + window.location.host + '/records/detail',
     {
       method: 'POST',
+      signal: signal,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -98,6 +110,8 @@ function search(recordId, cb) {
     }
   )
     .then(response => {
+      requestStatus = ERequestStatus.notSent;
+
       if (response.ok) return response.json();
 
       return undefined;
@@ -110,6 +124,7 @@ function search(recordId, cb) {
       }
     })
     .catch(err => {
+      requestStatus = ERequestStatus.notSent;
       console.log('Fetch error:', err);
       cb(null);
     });
