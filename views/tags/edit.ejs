@@ -15,6 +15,8 @@
           method="POST"
           autocomplete="off"
         >
+          <%- include('./../includes/csrf.ejs'); %>
+
           <%- include('./../includes/title.ejs', { backLink: '/tags' }); %>
 
           <ul class="form__list">

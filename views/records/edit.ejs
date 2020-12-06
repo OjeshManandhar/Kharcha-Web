@@ -41,6 +41,8 @@
               method="POST"
               autocomplete="off"
             >
+              <%- include('./../includes/csrf.ejs'); %>
+
               <ul class="form__list">
                 <%- include('./../includes/recordForm.ejs', { newRecord: false
                 }); %>

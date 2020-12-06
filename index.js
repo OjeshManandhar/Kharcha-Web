@@ -60,6 +60,12 @@ app.use(
 // CSRF
 app.use(csrf);
 
+// Add local/common values to res
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
+
 // Find user
 app.use((req, res, next) => {
   if (req.session.loggedIn && req.session.userId) {
