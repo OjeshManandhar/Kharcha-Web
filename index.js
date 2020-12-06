@@ -1,4 +1,5 @@
 // packages
+const csrf = require('csurf')();
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -36,7 +37,7 @@ app.set('view engine', 'ejs');
 // Static files
 app.use(express.static(path('public')));
 
-// Request body parser
+// Request parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -55,6 +56,9 @@ app.use(
     }
   })
 );
+
+// CSRF
+app.use(csrf);
 
 // Find user
 app.use((req, res, next) => {

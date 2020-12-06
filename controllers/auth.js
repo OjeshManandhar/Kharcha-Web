@@ -17,14 +17,20 @@ module.exports.get = {
       res.redirect('/home');
       return;
     }
-    res.render(_path('login'), { title: 'Log In' });
+    res.render(_path('login'), {
+      title: 'Log In',
+      csrfToken: req.csrfToken()
+    });
   },
   createAccount: (req, res) => {
     if (req.session.loggedIn) {
       res.redirect('/home');
       return;
     }
-    res.render(_path('createAccount'), { title: 'Create Account' });
+    res.render(_path('createAccount'), {
+      title: 'Create Account',
+      csrfToken: req.csrfToken()
+    });
   },
   logout: (req, res) => {
     req.session.destroy(err => {
