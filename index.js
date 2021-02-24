@@ -47,9 +47,9 @@ const SESSION_EXPIRATION = parseInt(process.env.SESSION_EXPIRATION);
 const sequelizeSessionStore = new sessionStore({
   db: sequelize,
   // The interval at which to cleanup expired sessions in milliseconds.
-  checkExpirationInterval: (SESSION_EXPIRATION / 2) * 60 * 1000,
+  checkExpirationInterval: 0.5 * 60 * 60 * 1000, // 0.5 hour
   // The maximum age (in milliseconds) of a valid session.
-  expiration: SESSION_EXPIRATION * 60 * 1000
+  expiration: SESSION_EXPIRATION * 60 * 60 * 1000
 });
 app.use(
   session({
@@ -58,7 +58,7 @@ app.use(
     saveUninitialized: false,
     store: sequelizeSessionStore,
     cookie: {
-      maxAge: SESSION_EXPIRATION * 60 * 1000 // 1 day
+      maxAge: SESSION_EXPIRATION * 60 * 60 * 1000 // 1 day
     }
   })
 );
