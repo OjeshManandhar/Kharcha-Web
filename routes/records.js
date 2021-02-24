@@ -27,6 +27,6 @@ router.post('/edit', recordsController.post.edit);
 router.post('/delete', recordsController.post.delete);
 
 // REST
-router.post('/detail', recordsController.post.detail);
+router.get('/detail/:id', recordsController.get.detail);
 
 module.exports = router;

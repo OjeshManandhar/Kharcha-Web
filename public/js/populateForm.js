@@ -99,17 +99,11 @@ function search(recordId, cb) {
   controller = new AbortController();
   requestStatus = ERequestStatus.sent;
   fetch(
-    window.location.protocol + '//' + window.location.host + '/records/detail',
-    {
-      method: 'POST',
-      signal: controller.signal,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: recordId
-      })
-    }
+    window.location.protocol +
+      '//' +
+      window.location.host +
+      '/records/detail/' +
+      recordId
   )
     .then(response => {
       requestStatus = ERequestStatus.notSent;
