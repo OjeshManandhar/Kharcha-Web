@@ -12,6 +12,9 @@ require('dotenv').config();
 const { sequelize } = require('./database');
 const setAssociations = require('./database/associations');
 
+// model
+const { User } = require('./models');
+
 // controllers
 const errorController = require('./controllers/error');
 
@@ -21,9 +24,6 @@ const homeRouter = require('./routes/home');
 const mainRouter = require('./routes/main');
 const tagsRouter = require('./routes/tags');
 const recordsRouter = require('./routes/records');
-
-// model
-const { User } = require('./models');
 
 // utils
 const { path } = require('./utils/path');
@@ -41,9 +41,15 @@ app.use(express.static(path('public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const SESSION_EXPIRATION = parseInt(process.env.SESSION_EXPIRATION);
+
 // session
 const sequelizeSessionStore = new sessionStore({
-  db: sequelize
+  db: sequelize,
+  // The interval at which to cleanup expired sessions in milliseconds.
+  checkExpirationInterval: (SESSION_EXPIRATION / 2) * 60 * 1000,
+  // The maximum age (in milliseconds) of a valid session.
+  expiration: SESSION_EXPIRATION * 60 * 1000
 });
 app.use(
   session({
@@ -52,7 +58,7 @@ app.use(
     saveUninitialized: false,
     store: sequelizeSessionStore,
     cookie: {
-      maxAge: 1 * 24 * 60 * 60 * 1000 // 1 day
+      maxAge: SESSION_EXPIRATION * 60 * 1000 // 1 day
     }
   })
 );
