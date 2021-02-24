@@ -54,7 +54,7 @@ const sequelizeSessionStore = new sessionStore({
 app.use(
   session({
     secret: process.env.APP_SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     store: sequelizeSessionStore,
     cookie: {
