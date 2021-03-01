@@ -41,9 +41,9 @@ app.use(express.static(path('public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// session
 const SESSION_EXPIRATION = parseInt(process.env.SESSION_EXPIRATION);
 
-// session
 const sequelizeSessionStore = new sessionStore({
   db: sequelize,
   // The interval at which to cleanup expired sessions in milliseconds.
@@ -51,6 +51,7 @@ const sequelizeSessionStore = new sessionStore({
   // The maximum age (in milliseconds) of a valid session.
   expiration: SESSION_EXPIRATION * 60 * 60 * 1000
 });
+
 app.use(
   session({
     secret: process.env.APP_SECRET,

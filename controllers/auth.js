@@ -139,7 +139,6 @@ module.exports.post = {
           });
       })
       .catch(err => console.log('User.findOne error:', err));
-    User.create({ userName: 'TestUser', password: 'test password' });
   },
   changePassword: (req, res) => {
     const oldPass = req.body['old-password'];
